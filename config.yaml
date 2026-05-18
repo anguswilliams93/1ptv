@@ -25,49 +25,34 @@ group_map:
   entertainment: Entertainment
   general:       Entertainment
 
+# Real iptv-org IDs for AU channels that have active streams.
+# SBS lineup, 7Two/7Mate, 9Rush, 10 HD/Peach, Nickelodeon AU are NOT in iptv-org —
+# omitted until upstream adds them.
 au_fta_ids:
-  - ABC1.au
-  - ABC2.au
+  - ABCTV.au           # was ABC1.au
+  - ABCTVPlus.au       # was ABC2.au
   - ABCNews.au
-  - SBSOne.au
-  - SBSViceland.au
-  - SBSWorldMovies.au
-  - SBSFood.au
-  - SevenHD.au
-  - SevenTwo.au
-  - SevenMate.au
-  - SevenBravo.au
-  - 9HD.au
+  - ABCEntertains.au   # ABC Comedy/Entertains, LCN 23
+  - ABCKids.au         # shares LCN 22 daytime with ABC TV Plus
+  - Channel7.au        # was SevenHD.au
+  - Channel9.au        # was 9HD.au
   - 9Gem.au
   - 9Go.au
   - 9Life.au
-  - 9Rush.au
-  - TenHD.au
-  - TenBold.au
-  - TenPeach.au
-  - Nickelodeon.au
+  - 10Bold.au          # was TenBold.au
 
 au_fta_lcn:
-  ABC1.au: 2
-  ABC2.au: 22
+  ABCTV.au: 2
+  ABCTVPlus.au: 22
   ABCNews.au: 24
-  SBSOne.au: 3
-  SBSViceland.au: 31
-  SBSWorldMovies.au: 32
-  SBSFood.au: 33
-  SevenHD.au: 7
-  SevenTwo.au: 72
-  SevenMate.au: 73
-  SevenBravo.au: 74
-  9HD.au: 9
+  ABCEntertains.au: 23
+  ABCKids.au: 22
+  Channel7.au: 7
+  Channel9.au: 9
   9Gem.au: 92
   9Go.au: 93
   9Life.au: 94
-  9Rush.au: 95
-  TenHD.au: 10
-  TenBold.au: 12
-  TenPeach.au: 11
-  Nickelodeon.au: 13
+  10Bold.au: 12
 
 custom_user_agent_channels: []
 

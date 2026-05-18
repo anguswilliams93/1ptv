@@ -50,7 +50,7 @@ def test_filter_drops_name_pattern():
 
 def test_filter_assigns_au_fta_group_overrides_category():
     cfg = load_config(Path("config.yaml"))
-    chans = [_ch(id="ABC1.au", country="AU", categories=["general"], name="ABC")]
+    chans = [_ch(id="ABCTV.au", country="AU", categories=["general"], name="ABC TV")]
     out = filter_channels(chans, cfg)
     assert out[0].group == "AU FTA"
 
