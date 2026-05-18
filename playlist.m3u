@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://EXAMPLE.github.io/1ptv/epg.xml.gz" x-tvg-url="https://EXAMPLE.github.io/1ptv/epg.xml.gz"
+#EXTM3U url-tvg="https://anguswilliams93.github.io/1ptv/epg.xml.gz" x-tvg-url="https://anguswilliams93.github.io/1ptv/epg.xml.gz"
 #EXTINF:-1 tvg-id="9Gem.au" tvg-logo="" group-title="AU FTA" tvg-chno="92",9Gem
 https://9now-livestreams.akamaized.net/hls/live/2008311/gem-syd/master.m3u8
 #EXTINF:-1 tvg-id="9Go.au" tvg-logo="" group-title="AU FTA" tvg-chno="93",9Go!
