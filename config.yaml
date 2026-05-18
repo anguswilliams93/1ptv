@@ -1,0 +1,107 @@
+include:
+  countries: [AU]
+  channel_ids:
+    - BBCNews.uk
+    - CNNInternational.us
+    - AlJazeeraEnglish.qa
+    - SkyNews.uk
+    - DWEnglish.de
+    - FRANCE24English.fr
+
+exclude:
+  categories: [shop, religious, auto, xxx]
+  channel_ids: []
+  name_patterns:
+    - "(?i)test"
+    - "(?i)24/?7\\s*(music|loop)"
+
+group_map:
+  news:          News
+  sports:        Sport
+  kids:          Kids
+  movies:        Movies
+  music:         Music
+  documentary:   Docos
+  entertainment: Entertainment
+  general:       Entertainment
+
+au_fta_ids:
+  - ABC1.au
+  - ABC2.au
+  - ABCNews.au
+  - SBSOne.au
+  - SBSViceland.au
+  - SBSWorldMovies.au
+  - SBSFood.au
+  - SevenHD.au
+  - SevenTwo.au
+  - SevenMate.au
+  - SevenBravo.au
+  - 9HD.au
+  - 9Gem.au
+  - 9Go.au
+  - 9Life.au
+  - 9Rush.au
+  - TenHD.au
+  - TenBold.au
+  - TenPeach.au
+  - Nickelodeon.au
+
+au_fta_lcn:
+  ABC1.au: 2
+  ABC2.au: 22
+  ABCNews.au: 24
+  SBSOne.au: 3
+  SBSViceland.au: 31
+  SBSWorldMovies.au: 32
+  SBSFood.au: 33
+  SevenHD.au: 7
+  SevenTwo.au: 72
+  SevenMate.au: 73
+  SevenBravo.au: 74
+  9HD.au: 9
+  9Gem.au: 92
+  9Go.au: 93
+  9Life.au: 94
+  9Rush.au: 95
+  TenHD.au: 10
+  TenBold.au: 12
+  TenPeach.au: 11
+  Nickelodeon.au: 13
+
+custom_user_agent_channels: []
+
+healthcheck:
+  concurrency: 50
+  timeout_seconds: 5
+  max_redirects: 3
+  user_agent: "VLC/3.0.20 LibVLC/3.0.20"
+  quarantine_threshold: 3
+
+group_order:
+  - "AU FTA"
+  - News
+  - Sport
+  - Movies
+  - Docos
+  - Entertainment
+  - Kids
+  - Music
+  - Other
+
+epg_sources:
+  AU: https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz
+  UK: https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz
+  US: https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz
+  QA: https://epgshare01.online/epgshare01/epg_ripper_QA1.xml.gz
+  DE: https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz
+  FR: https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz
+
+iptv_org:
+  streams:    https://iptv-org.github.io/api/streams.json
+  channels:   https://iptv-org.github.io/api/channels.json
+  categories: https://iptv-org.github.io/api/categories.json
+  feeds:      https://iptv-org.github.io/api/feeds.json
+
+output:
+  epg_url: https://EXAMPLE.github.io/1ptv/epg.xml.gz
