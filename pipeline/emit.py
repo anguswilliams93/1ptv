@@ -41,7 +41,7 @@ def emit_playlist(channels: list[Channel], cfg: Config, out_path: Path) -> None:
         lines.append(ch.url)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    out_path.write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
 
 
 def emit_epg(channels: list[Channel], epg_files: list[Path], out_path: Path) -> None:
