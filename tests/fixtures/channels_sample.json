@@ -1,0 +1,7 @@
+[
+  {"id": "ABCNews.au", "name": "ABC News",   "country": "AU", "categories": ["news"],          "languages": ["eng"], "logo": "https://logos.example/abcnews.png"},
+  {"id": "ABC1.au",    "name": "ABC",        "country": "AU", "categories": ["general"],       "languages": ["eng"], "logo": "https://logos.example/abc1.png"},
+  {"id": "Seven.au",   "name": "Seven",      "country": "AU", "categories": ["entertainment"], "languages": ["eng"], "logo": "https://logos.example/seven.png"},
+  {"id": "TVSN.au",    "name": "TVSN",       "country": "AU", "categories": ["shop"],          "languages": ["eng"], "logo": "https://logos.example/tvsn.png"},
+  {"id": "BBCNews.uk", "name": "BBC News",   "country": "GB", "categories": ["news"],          "languages": ["eng"], "logo": "https://logos.example/bbcnews.png"}
+]

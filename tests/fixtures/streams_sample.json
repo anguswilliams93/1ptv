@@ -1,0 +1,8 @@
+[
+  {"channel": "ABCNews.au", "feed": "main", "url": "https://abcnews.example/stream.m3u8", "http_referrer": null, "user_agent": null},
+  {"channel": "ABC1.au",    "feed": null,   "url": "https://abc1.example/stream.m3u8",    "http_referrer": null, "user_agent": null},
+  {"channel": "Seven.au",   "feed": "hd",   "url": "https://seven.example/hd.m3u8",       "http_referrer": null, "user_agent": null},
+  {"channel": "Seven.au",   "feed": "sd",   "url": "https://seven.example/sd.m3u8",       "http_referrer": null, "user_agent": null},
+  {"channel": "TVSN.au",    "feed": null,   "url": "https://tvsn.example/stream.m3u8",    "http_referrer": null, "user_agent": null},
+  {"channel": "BBCNews.uk", "feed": null,   "url": "https://bbcnews.example/stream.m3u8", "http_referrer": null, "user_agent": null}
+]

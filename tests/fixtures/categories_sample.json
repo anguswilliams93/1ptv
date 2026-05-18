@@ -1,0 +1,9 @@
+[
+  {"id": "news",          "name": "News"},
+  {"id": "general",       "name": "General"},
+  {"id": "entertainment", "name": "Entertainment"},
+  {"id": "shop",          "name": "Shop"},
+  {"id": "religious",     "name": "Religious"},
+  {"id": "auto",          "name": "Auto"},
+  {"id": "xxx",           "name": "XXX"}
+]

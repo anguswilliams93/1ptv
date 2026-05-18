@@ -1,0 +1,5 @@
+[
+  {"channel": "Seven.au",   "id": "hd",   "video_format": "HLS", "is_main": true,  "broadcast_area": ["c/AU"], "languages": ["eng"], "format": "HLS", "video": {"height": 1080}},
+  {"channel": "Seven.au",   "id": "sd",   "video_format": "HLS", "is_main": false, "broadcast_area": ["c/AU"], "languages": ["eng"], "format": "HLS", "video": {"height": 480}},
+  {"channel": "ABCNews.au", "id": "main", "video_format": "HLS", "is_main": true,  "broadcast_area": ["c/AU"], "languages": ["eng"], "format": "HLS", "video": {"height": 720}}
+]
