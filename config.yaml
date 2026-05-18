@@ -104,4 +104,4 @@ iptv_org:
   feeds:      https://iptv-org.github.io/api/feeds.json
 
 output:
-  epg_url: https://EXAMPLE.github.io/1ptv/epg.xml.gz
+  epg_url: https://anguswilliams93.github.io/1ptv/epg.xml.gz
