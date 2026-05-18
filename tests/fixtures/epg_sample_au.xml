@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="ABCNews.au">
+    <display-name>ABC News</display-name>
+  </channel>
+  <channel id="UnusedChannel.au">
+    <display-name>Unused</display-name>
+  </channel>
+  <programme channel="ABCNews.au" start="20260518040000 +0000" stop="20260518050000 +0000">
+    <title>The World</title>
+  </programme>
+  <programme channel="UnusedChannel.au" start="20260518040000 +0000" stop="20260518050000 +0000">
+    <title>Nothing</title>
+  </programme>
+</tv>

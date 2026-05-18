@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="BBCNews.uk">
+    <display-name>BBC News</display-name>
+  </channel>
+  <programme channel="BBCNews.uk" start="20260518040000 +0000" stop="20260518050000 +0000">
+    <title>Newsday</title>
+  </programme>
+</tv>
