@@ -89,7 +89,7 @@ async def check_channels(
 
     save_state(state_path, state)
 
-    return [c for c in probed if state[c.url]["consecutive_failures"] == 0]
+    return [c for c in probed if state[c.url]["consecutive_failures"] < hc.quarantine_threshold]
 
 
 def write(channels: list[Channel], path: Path) -> None:

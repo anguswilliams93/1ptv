@@ -44,24 +44,30 @@ async def test_alive_when_status_ok_and_content_type_matches(tmp_path):
 
 @pytest.mark.asyncio
 @respx.mock
-async def test_dead_when_status_500_drops_channel_after_threshold(tmp_path):
+async def test_dead_channel_dropped_only_after_threshold(tmp_path):
     url = "https://dead.example/stream.m3u8"
     chans = [_ch(url)]
     respx.head(url).mock(return_value=httpx.Response(500))
     respx.get(url).mock(return_value=httpx.Response(500))
 
     state_path = tmp_path / "_state.json"
-    hc = _hc(threshold=2)
+    hc = _hc(threshold=3)
 
+    # 1st failure — still in output (1 < 3)
     r1 = await check_channels(chans, hc, state_path)
-    assert r1 == []
-    s1 = load_state(state_path)
-    assert s1[url]["consecutive_failures"] == 1
+    assert len(r1) == 1
+    assert r1[0].status == "dead"
+    assert load_state(state_path)[url]["consecutive_failures"] == 1
 
+    # 2nd failure — still in output (2 < 3)
     r2 = await check_channels(chans, hc, state_path)
-    assert r2 == []
-    s2 = load_state(state_path)
-    assert s2[url]["consecutive_failures"] == 2
+    assert len(r2) == 1
+    assert load_state(state_path)[url]["consecutive_failures"] == 2
+
+    # 3rd failure — dropped (3 not < 3)
+    r3 = await check_channels(chans, hc, state_path)
+    assert r3 == []
+    assert load_state(state_path)[url]["consecutive_failures"] == 3
 
 
 @pytest.mark.asyncio
