@@ -209,13 +209,13 @@ https://.../abcnews.m3u8
 ```yaml
 include:
   countries: [AU]
-  channel_ids:                # international FAST allowlist
+  channel_ids:                # international FAST allowlist (iptv-org IDs)
     - BBCNews.uk
     - CNNInternational.us
-    - AlJazeeraEnglish.qa
+    - AlJazeera.qa
     - SkyNews.uk
-    - DWEnglish.de
-    - FRANCE24English.fr
+    - DW.de
+    - France24.fr
 
 exclude:
   categories: [shop, religious, auto, xxx]

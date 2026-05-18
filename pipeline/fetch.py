@@ -83,7 +83,20 @@ async def fetch_epg_files(cfg: Config, out_dir: Path) -> dict[str, Path]:
             p.write_bytes(xml_bytes)
             paths[code] = p
 
-        await asyncio.gather(*[_one(code, url) for code, url in cfg.epg_sources.items()])
+        results = await asyncio.gather(
+            *[_one(code, url) for code, url in cfg.epg_sources.items()],
+            return_exceptions=True,
+        )
+        failures = [
+            (code, result)
+            for code, result in zip(cfg.epg_sources.keys(), results)
+            if isinstance(result, BaseException)
+        ]
+        if failures and len(failures) == len(cfg.epg_sources):
+            # All sources failed — surface to orchestrator. Partial failures are silent
+            # so the surviving EPG entries still ship.
+            codes = ", ".join(c for c, _ in failures)
+            raise RuntimeError(f"all EPG sources failed: {codes}")
     return paths
 
 

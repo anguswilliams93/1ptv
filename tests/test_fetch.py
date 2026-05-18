@@ -72,3 +72,32 @@ async def test_fetch_epg_files_writes_per_country(tmp_path):
     for code, p in paths.items():
         assert p.exists()
         assert p.read_bytes() == sample_xml
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_fetch_epg_files_partial_failure_keeps_successes(tmp_path):
+    cfg = load_config(Path("config.yaml"))
+    import gzip
+    good = gzip.compress(b"<?xml version=\"1.0\"?><tv/>")
+    codes = list(cfg.epg_sources.keys())
+    # First half succeeds, second half 500s
+    for code in codes[: len(codes) // 2]:
+        respx.get(cfg.epg_sources[code]).mock(return_value=httpx.Response(200, content=good))
+    for code in codes[len(codes) // 2 :]:
+        respx.get(cfg.epg_sources[code]).mock(return_value=httpx.Response(500))
+
+    paths = await fetch_epg_files(cfg, tmp_path / "epg")
+    # Only the successes are present, no exception raised.
+    assert set(paths.keys()) == set(codes[: len(codes) // 2])
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_fetch_epg_files_total_failure_raises(tmp_path):
+    cfg = load_config(Path("config.yaml"))
+    for url in cfg.epg_sources.values():
+        respx.get(url).mock(return_value=httpx.Response(500))
+
+    with pytest.raises(RuntimeError, match="all EPG sources failed"):
+        await fetch_epg_files(cfg, tmp_path / "epg")
