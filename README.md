@@ -2,8 +2,8 @@
 
 English-language free IPTV channels, **health-tested and deployed every day** via GitHub Actions.
 
-- **Playlist:** `https://<user>.github.io/1ptv/playlist.m3u`
-- **EPG (guide):** `https://<user>.github.io/1ptv/epg.xml.gz`
+- **Playlist:** `https://anguswilliams93.github.io/1ptv/playlist.m3u`
+- **EPG (guide):** `https://anguswilliams93.github.io/1ptv/epg.xml.gz`
 
 Channels are pulled from public sources, filtered to English-language markets (Australia, UK, USA, Canada, Ireland, Trinidad), de-duplicated, and probed for reachability before publishing. The guide data (EPG) is merged and shipped alongside.
 
