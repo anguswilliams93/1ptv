@@ -50,6 +50,7 @@ jobs:
             healthcheck-state-
       - run: python -m pipeline
       - name: Append report to job summary
+        continue-on-error: true
         run: python scripts/job_summary.py build/report.json >> "$GITHUB_STEP_SUMMARY"
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4

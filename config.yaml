@@ -90,6 +90,15 @@ epg_sources:
   QA: https://epgshare01.online/epgshare01/epg_ripper_QA1.xml.gz
   DE: https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz
   FR: https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz
+  # FAST-provider EPG (plain .xml). tvg-ids pair with the matching m3u in
+  # playlist_sources, so guide data auto-populates for those channels.
+  PLEX_AU: https://i.mjh.nz/Plex/au.xml
+  PLEX_US: https://i.mjh.nz/Plex/us.xml
+  PLEX_GB: https://i.mjh.nz/Plex/gb.xml
+  PLEX_CA: https://i.mjh.nz/Plex/ca.xml
+  SAMSUNG_US: https://i.mjh.nz/SamsungTVPlus/us.xml
+  SAMSUNG_GB: https://i.mjh.nz/SamsungTVPlus/gb.xml
+  SAMSUNG_CA: https://i.mjh.nz/SamsungTVPlus/ca.xml
 
 # Maps an upstream EPG channel id (left) to the playlist tvg-id (right, an
 # iptv-org id). A channel only shows guide data when its tvg-id matches a

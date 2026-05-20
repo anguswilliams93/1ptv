@@ -62,8 +62,10 @@ async def test_fetch_epg_files_writes_per_country(tmp_path):
     sample_xml = b"<?xml version=\"1.0\"?><tv><channel id=\"x\"/></tv>"
     import gzip
     gz = gzip.compress(sample_xml)
+    # Sources are a mix of .xml.gz (epgshare01) and plain .xml (FAST providers).
     for url in cfg.epg_sources.values():
-        respx.get(url).mock(return_value=httpx.Response(200, content=gz))
+        content = gz if url.endswith(".gz") else sample_xml
+        respx.get(url).mock(return_value=httpx.Response(200, content=content))
 
     out_dir = tmp_path / "epg"
     paths = await fetch_epg_files(cfg, out_dir)
