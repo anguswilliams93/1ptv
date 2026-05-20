@@ -37,21 +37,34 @@ def _ct_alive(content_type: str | None) -> bool:
     return ct in ALIVE_CONTENT_TYPES
 
 
-def _should_publish(entry: dict, hc: HealthcheckConfig) -> bool:
+def _should_publish(entry: dict, hc: HealthcheckConfig, protected: bool) -> bool:
     """Whether a probed channel belongs in the output.
 
-    A channel is published if its latest probe is alive, or if it has a proven
-    history of being alive and is still within the transient-failure grace
-    window. Channels that have never probed alive (e.g. CDN/geo 403s) are
-    dropped immediately rather than shipped while the quarantine counter — which
-    resets whenever state isn't persisted between runs — counts up to threshold.
+    The probe runs from a single (US datacenter) IP, which cannot distinguish a
+    genuinely dead stream from one that simply geo/auth-blocks that location — a
+    huge share of AU/UK/US broadcast streams answer non-datacenter requests with
+    403. So the bar for *dropping* is deliberately high:
+
+    - protected (user-curated) channels are always kept;
+    - 'alive' (real stream) and 'reachable' (server answered, e.g. 403 geo-block)
+      are kept;
+    - only 'dead' endpoints (unreachable host, 404/410, error page) are dropped,
+      and even then a grace window absorbs transient blips.
     """
-    if entry.get("last_status") == "alive":
+    if protected:
         return True
-    return bool(entry.get("ever_alive")) and entry.get("consecutive_failures", 0) < hc.quarantine_threshold
+    if entry.get("last_status") in ("alive", "reachable"):
+        return True
+    return entry.get("consecutive_failures", 0) < hc.quarantine_threshold
 
 
-async def _probe_one(client: httpx.AsyncClient, ch: Channel, hc: HealthcheckConfig) -> bool:
+async def _probe_one(client: httpx.AsyncClient, ch: Channel, hc: HealthcheckConfig) -> str:
+    """Classify a stream as 'alive', 'reachable', or 'dead'.
+
+    'reachable' means the origin answered but we can't confirm a stream from here
+    (geo/auth 403, transient 5xx, redirects) — kept, since it likely plays for an
+    in-region viewer. 'dead' is reserved for endpoints that are gone/unroutable.
+    """
     headers = {"User-Agent": hc.user_agent}
     try:
         r = await client.head(ch.url, headers=headers, timeout=hc.timeout_seconds)
@@ -61,17 +74,26 @@ async def _probe_one(client: httpx.AsyncClient, ch: Channel, hc: HealthcheckConf
                 headers={**headers, "Range": "bytes=0-1023"},
                 timeout=hc.timeout_seconds,
             )
-        if r.status_code >= 400:
-            return False
-        return _ct_alive(r.headers.get("content-type"))
     except (httpx.RequestError, httpx.TimeoutException):
-        return False
+        return "dead"
+
+    code = r.status_code
+    if code < 400 and _ct_alive(r.headers.get("content-type")):
+        return "alive"
+    # Origin responded but isn't a confirmable stream. Auth/geo gates (401/403/
+    # 451), method quirks (405/501) and transient server errors (5xx) mean the
+    # endpoint is live infrastructure — keep it. A 404/410 or a 2xx error page is
+    # genuinely dead.
+    if code in (401, 403, 451, 405, 501) or 500 <= code < 600:
+        return "reachable"
+    return "dead"
 
 
 async def check_channels(
     channels: list[Channel],
     hc: HealthcheckConfig,
     state_path: Path,
+    protected_ids: frozenset[str] | set[str] = frozenset(),
 ) -> list[Channel]:
     state = load_state(state_path)
     sem = asyncio.Semaphore(hc.concurrency)
@@ -85,20 +107,14 @@ async def check_channels(
 
         async def _one(ch: Channel) -> Channel:
             async with sem:
-                alive = await _probe_one(client, ch, hc)
-            entry = state.get(
-                ch.url,
-                {"consecutive_failures": 0, "last_status": "unknown", "ever_alive": False},
-            )
-            if alive:
-                entry["consecutive_failures"] = 0
-                entry["last_status"] = "alive"
-                entry["ever_alive"] = True
-                ch.status = "alive"
-            else:
+                status = await _probe_one(client, ch, hc)
+            entry = state.get(ch.url, {"consecutive_failures": 0, "last_status": "unknown"})
+            if status == "dead":
                 entry["consecutive_failures"] = entry.get("consecutive_failures", 0) + 1
-                entry["last_status"] = "dead"
-                ch.status = "dead"
+            else:  # alive or reachable — the origin answered
+                entry["consecutive_failures"] = 0
+            entry["last_status"] = status
+            ch.status = status
             ch.last_checked = now
             state[ch.url] = entry
             return ch
@@ -107,7 +123,7 @@ async def check_channels(
 
     save_state(state_path, state)
 
-    return [c for c in probed if _should_publish(state[c.url], hc)]
+    return [c for c in probed if _should_publish(state[c.url], hc, c.id in protected_ids)]
 
 
 def write(channels: list[Channel], path: Path) -> None:

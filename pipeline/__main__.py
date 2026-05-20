@@ -52,7 +52,13 @@ async def run() -> int:
     dedupe.write(deduped, build / "3_deduped.json")
     report["deduped"] = len(deduped)
 
-    healthy = await healthcheck.check_channels(deduped, cfg.healthcheck, build / "_state.json")
+    # Channels the user explicitly curated are kept regardless of probe result —
+    # most are region-locked broadcast streams that 403 from the CI runner's IP
+    # but play fine in-region.
+    protected = set(cfg.au_fta_ids) | set(cfg.include_channel_ids)
+    healthy = await healthcheck.check_channels(
+        deduped, cfg.healthcheck, build / "_state.json", protected
+    )
     healthcheck.write(healthy, build / "4_healthy.json")
     report["alive"] = len(healthy)
     report["dead"] = len(deduped) - len(healthy)
