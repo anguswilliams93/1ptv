@@ -30,8 +30,11 @@ class Config:
     healthcheck: HealthcheckConfig
     group_order: list[str]
     epg_sources: dict[str, str]
+    epg_id_map: dict[str, str]
     iptv_org: dict[str, str]
     output_epg_url: str
+    playlist_sources: list[str]
+    playlist_include_groups: list[str]
 
 
 def load_config(path: Path) -> Config:
@@ -66,6 +69,9 @@ def _from_raw(raw: dict) -> Config:
         ),
         group_order=list(raw["group_order"]),
         epg_sources=dict(raw["epg_sources"]),
+        epg_id_map={str(k): str(v) for k, v in (raw.get("epg_id_map") or {}).items()},
         iptv_org=dict(raw["iptv_org"]),
         output_epg_url=str(raw["output"]["epg_url"]),
+        playlist_sources=list(raw.get("playlist_sources") or []),
+        playlist_include_groups=list(raw.get("playlist_include_groups") or []),
     )

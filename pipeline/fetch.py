@@ -8,6 +8,7 @@ from pathlib import Path
 import httpx
 
 from pipeline.config import Config
+from pipeline.m3u import parse_m3u
 from pipeline.models import Channel
 
 _RETRIES = 3
@@ -98,6 +99,34 @@ async def fetch_epg_files(cfg: Config, out_dir: Path) -> dict[str, Path]:
             codes = ", ".join(c for c, _ in failures)
             raise RuntimeError(f"all EPG sources failed: {codes}")
     return paths
+
+
+async def fetch_playlist_channels(cfg: Config) -> list[Channel]:
+    """Download and parse each external M3U in cfg.playlist_sources.
+
+    Sources are independent: a single source failing is tolerated, but if every
+    source fails the error is surfaced to the orchestrator (which treats it as
+    non-fatal). Returns the concatenation of all parsed channels.
+    """
+    if not cfg.playlist_sources:
+        return []
+
+    async with httpx.AsyncClient(http2=True, follow_redirects=True) as client:
+        results = await asyncio.gather(
+            *[_get_with_retry(client, url) for url in cfg.playlist_sources],
+            return_exceptions=True,
+        )
+
+    failures = [r for r in results if isinstance(r, BaseException)]
+    if failures and len(failures) == len(cfg.playlist_sources):
+        raise RuntimeError(f"all playlist sources failed: {failures[0]!r}")
+
+    out: list[Channel] = []
+    for r in results:
+        if isinstance(r, BaseException):
+            continue
+        out.extend(parse_m3u(r.text))
+    return out
 
 
 def write_raw(channels: list[Channel], path: Path) -> None:

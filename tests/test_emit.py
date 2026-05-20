@@ -97,6 +97,44 @@ def test_emit_epg_merges_filters_and_gzips(tmp_path, fixtures_dir):
     assert "UnusedChannel.au" not in ids_in_channels
 
 
+def test_emit_epg_applies_id_map(tmp_path):
+    """An id_map rewrites upstream EPG ids to the playlist tvg-id so they match."""
+    src = tmp_path / "src.xml"
+    src.write_text(
+        '<?xml version="1.0"?><tv>'
+        '<channel id="7HD.au"><display-name>Seven</display-name></channel>'
+        '<programme channel="7HD.au" start="20260518040000 +0000" stop="20260518050000 +0000">'
+        "<title>News</title></programme>"
+        "</tv>",
+        encoding="utf-8",
+    )
+    out = tmp_path / "epg.xml.gz"
+    populated = emit_epg([_ch(id="Channel7.au", name="Seven")], [src], out,
+                         id_map={"7HD.au": "Channel7.au"})
+
+    root = ET.fromstring(gzip.decompress(out.read_bytes()))
+    assert {c.get("id") for c in root.findall("channel")} == {"Channel7.au"}
+    assert {p.get("channel") for p in root.findall("programme")} == {"Channel7.au"}
+    assert populated == {"Channel7.au"}
+
+
+def test_emit_epg_returns_only_programme_backed_ids(tmp_path):
+    """The returned coverage set counts ids with programmes, not bare <channel> stubs."""
+    src = tmp_path / "src.xml"
+    src.write_text(
+        '<?xml version="1.0"?><tv>'
+        '<channel id="ABCNews.au"><display-name>ABC News</display-name></channel>'
+        '<channel id="ABCTV.au"><display-name>ABC TV</display-name></channel>'
+        '<programme channel="ABCNews.au" start="20260518040000 +0000" stop="20260518050000 +0000">'
+        "<title>The World</title></programme>"
+        "</tv>",
+        encoding="utf-8",
+    )
+    out = tmp_path / "epg.xml.gz"
+    populated = emit_epg([_ch(id="ABCNews.au"), _ch(id="ABCTV.au", name="ABC TV")], [src], out)
+    assert populated == {"ABCNews.au"}
+
+
 def test_emit_epg_dedupes_duplicate_programmes(tmp_path):
     cfg = load_config(Path("config.yaml"))
     epg1 = tmp_path / "a.xml"

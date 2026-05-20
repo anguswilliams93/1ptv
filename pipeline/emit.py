@@ -44,11 +44,25 @@ def emit_playlist(channels: list[Channel], cfg: Config, out_path: Path) -> None:
     out_path.write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
 
 
-def emit_epg(channels: list[Channel], epg_files: list[Path], out_path: Path) -> None:
+def emit_epg(
+    channels: list[Channel],
+    epg_files: list[Path],
+    out_path: Path,
+    id_map: dict[str, str] | None = None,
+) -> set[str]:
+    """Merge xmltv sources down to the kept channels, gzip to out_path.
+
+    ``id_map`` rewrites upstream EPG ids (e.g. epgshare01's scheme) to the
+    playlist ``tvg-id`` so they match. Returns the set of tvg-ids that ended
+    up with at least one programme — i.e. the channels that actually populate
+    a guide.
+    """
+    id_map = id_map or {}
     keep_ids = {c.id for c in channels}
     merged_root = ET.Element("tv")
     seen_channels: set[str] = set()
     seen_programmes: set[tuple[str, str]] = set()
+    populated: set[str] = set()
 
     for f in epg_files:
         try:
@@ -57,18 +71,22 @@ def emit_epg(channels: list[Channel], epg_files: list[Path], out_path: Path) -> 
             continue
         root = tree.getroot()
         for ch_el in root.findall("channel"):
-            cid = ch_el.get("id")
+            cid = id_map.get(ch_el.get("id"), ch_el.get("id"))
             if cid in keep_ids and cid not in seen_channels:
+                ch_el.set("id", cid)
                 merged_root.append(ch_el)
                 seen_channels.add(cid)
         for prog in root.findall("programme"):
-            cid = prog.get("channel")
+            cid = id_map.get(prog.get("channel"), prog.get("channel"))
             start = prog.get("start")
             key = (cid, start)
             if cid in keep_ids and key not in seen_programmes:
+                prog.set("channel", cid)
                 merged_root.append(prog)
                 seen_programmes.add(key)
+                populated.add(cid)
 
     xml_bytes = ET.tostring(merged_root, encoding="utf-8", xml_declaration=True)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_bytes(gzip.compress(xml_bytes))
+    return populated

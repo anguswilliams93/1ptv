@@ -19,6 +19,19 @@ def test_load_config_from_project_root():
     assert cfg.epg_sources["AU"].startswith("https://")
     assert cfg.iptv_org["streams"].endswith("streams.json")
     assert cfg.output_epg_url.startswith("https://")
+    assert cfg.epg_id_map == {}
+    assert any("Free-TV" in s for s in cfg.playlist_sources)
+    assert "UK" in cfg.playlist_include_groups
+    assert "USA" in cfg.playlist_include_groups
+
+
+def test_epg_id_map_parses_string_pairs(tmp_path):
+    src = Path("config.yaml").read_text(encoding="utf-8")
+    src = src.replace("epg_id_map: {}", "epg_id_map:\n  7HD.au: Channel7.au")
+    cfg_path = tmp_path / "config.yaml"
+    cfg_path.write_text(src, encoding="utf-8")
+    cfg = load_config(cfg_path)
+    assert cfg.epg_id_map == {"7HD.au": "Channel7.au"}
 
 
 def test_load_config_rejects_missing_required_key(tmp_path):

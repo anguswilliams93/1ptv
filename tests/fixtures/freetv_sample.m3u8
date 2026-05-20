@@ -1,0 +1,17 @@
+#EXTM3U x-tvg-url="https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz"
+#EXTINF:-1 tvg-name="BBC One" tvg-logo="https://logo/bbcone.png" tvg-id="BBCOne.uk" tvg-country="GB" group-title="UK",BBC One
+https://ftv.example/bbcone.m3u8
+#EXTINF:-1 tvg-name="Local UK" tvg-logo="" tvg-id="" tvg-country="GB" group-title="UK",Local UK
+https://ftv.example/localuk.m3u8
+#EXTINF:-1 tvg-name="Test Channel UK" tvg-logo="https://logo/test.png" tvg-id="TestUK.uk" tvg-country="GB" group-title="UK",Test Channel UK
+https://ftv.example/testuk.m3u8
+#EXTINF:-1 tvg-name="CBS News" tvg-logo="https://logo/cbs.png" tvg-id="CBS.us" tvg-country="US" group-title="USA",CBS News
+https://ftv.example/cbs.m3u8
+#EXTINF:-1 tvg-name="CBC Toronto" tvg-logo="https://logo/cbc.png" tvg-id="CBCTDT.ca" tvg-country="CA" group-title="Canada",CBC Toronto
+https://ftv.example/cbc.m3u8
+#EXTINF:-1 tvg-name="9Gem" tvg-logo="https://logo/9gem.png" tvg-id="9Gem.au" tvg-country="AU" group-title="Australia",9Gem
+https://ftv.example/9gem.m3u8
+#EXTINF:-1 tvg-name="TTT" tvg-logo="https://logo/ttt.png" tvg-id="TTT.tt" tvg-country="TT" group-title="Trinidad",TTT
+https://ftv.example/ttt.m3u8
+#EXTINF:-1 tvg-name="RAI 1" tvg-logo="https://logo/rai1.png" tvg-id="RAI1.it" tvg-country="IT" group-title="Italy",RAI 1
+https://ftv.example/rai1.m3u8

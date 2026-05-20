@@ -14,6 +14,7 @@ exclude:
   name_patterns:
     - "(?i)test"
     - "(?i)24/?7\\s*(music|loop)"
+    - "Ⓖ"   # Free-TV marker for geo-blocked streams (won't play out-of-region)
 
 group_map:
   news:          News
@@ -65,6 +66,12 @@ healthcheck:
 
 group_order:
   - "AU FTA"
+  - Australia
+  - UK
+  - USA
+  - Canada
+  - Ireland
+  - Trinidad
   - News
   - Sport
   - Movies
@@ -78,9 +85,21 @@ epg_sources:
   AU: https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz
   UK: https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz
   US: https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz
+  CA: https://epgshare01.online/epgshare01/epg_ripper_CA1.xml.gz
+  IE: https://epgshare01.online/epgshare01/epg_ripper_IE1.xml.gz
   QA: https://epgshare01.online/epgshare01/epg_ripper_QA1.xml.gz
   DE: https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz
   FR: https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz
+
+# Maps an upstream EPG channel id (left) to the playlist tvg-id (right, an
+# iptv-org id). A channel only shows guide data when its tvg-id matches a
+# <channel>/<programme> id in the merged xmltv; epgshare01 uses its own id
+# scheme, so unmapped channels list in the playlist but stay blank in the
+# guide. Fill this in using report.json -> epg.missing_ids after a build.
+epg_id_map: {}
+  # Example (verify against the real epg_ripper_AU1.xml.gz channel ids):
+  # 7HD.au: Channel7.au
+  # 9HD.au: Channel9.au
 
 iptv_org:
   streams:    https://iptv-org.github.io/api/streams.json
@@ -90,3 +109,17 @@ iptv_org:
 
 output:
   epg_url: https://anguswilliams93.github.io/1ptv/epg.xml.gz
+
+# External M3U playlists merged in alongside the iptv-org channels. Their
+# tvg-ids align with epgshare01, so EPG auto-populates from epg_sources above.
+playlist_sources:
+  - https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+
+# group-title values to keep from playlist_sources (English-language markets).
+playlist_include_groups:
+  - Australia
+  - UK
+  - USA
+  - Canada
+  - Ireland
+  - Trinidad
