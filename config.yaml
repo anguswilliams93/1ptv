@@ -110,12 +110,33 @@ iptv_org:
 output:
   epg_url: https://anguswilliams93.github.io/1ptv/epg.xml.gz
 
-# External M3U playlists merged in alongside the iptv-org channels. Their
-# tvg-ids align with epgshare01, so EPG auto-populates from epg_sources above.
+# External M3U playlists merged in alongside the iptv-org channels.
+# Two forms:
+#   - "<url>"                      → keep channels whose group-title is in
+#                                    playlist_include_groups (e.g. Free-TV, which
+#                                    groups by country). tvg-ids align with
+#                                    epgshare01 so EPG auto-populates.
+#   - {url: "<url>", group: "X"}   → force every channel into group "X". Used for
+#                                    FAST providers (Pluto/Samsung/Plex) whose
+#                                    files are region-per-URL with genre groups.
+#
+# NOTE on FAST sources: these are free ad-supported services, but the mjh.nz
+# republished playlists have a DMCA history (Warner takedown, Aug 2024) and the
+# URLs can change/break. The healthcheck drops any that stop resolving. Remove
+# entries you don't want. Region codes verified: Samsung = us/ca/gb (no au),
+# Plex = us/ca/gb/au.
 playlist_sources:
   - https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+  - {url: "https://i.mjh.nz/Plex/au.m3u8", group: Australia}
+  - {url: "https://i.mjh.nz/Plex/us.m3u8", group: USA}
+  - {url: "https://i.mjh.nz/Plex/gb.m3u8", group: UK}
+  - {url: "https://i.mjh.nz/Plex/ca.m3u8", group: Canada}
+  - {url: "https://i.mjh.nz/SamsungTVPlus/us.m3u8", group: USA}
+  - {url: "https://i.mjh.nz/SamsungTVPlus/gb.m3u8", group: UK}
+  - {url: "https://i.mjh.nz/SamsungTVPlus/ca.m3u8", group: Canada}
 
-# group-title values to keep from playlist_sources (English-language markets).
+# group-title values to keep from string-form playlist_sources (English markets).
+# Sources with an explicit {group: ...} bypass this list.
 playlist_include_groups:
   - Australia
   - UK

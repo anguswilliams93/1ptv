@@ -35,8 +35,9 @@ async def test_full_run_produces_outputs(tmp_path, fixtures_dir, monkeypatch):
         respx.get(cfg.epg_sources[code]).mock(return_value=httpx.Response(200, content=gzip.compress(minimal)))
 
     freetv = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(200, content=freetv))
+    for s in cfg.playlist_sources:
+        body = freetv if "Free-TV" in s.url else b"#EXTM3U\n"
+        respx.get(s.url).mock(return_value=httpx.Response(200, content=body))
 
     for url in [
         "https://abcnews.example/stream.m3u8",
@@ -112,9 +113,9 @@ async def test_epg_failure_is_non_fatal(tmp_path, fixtures_dir, monkeypatch):
     for url in cfg.epg_sources.values():
         respx.get(url).mock(return_value=httpx.Response(500))
 
-    # Playlist source returns no channels (keeps this test focused on EPG).
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(200, text="#EXTM3U\n"))
+    # Playlist sources return no channels (keeps this test focused on EPG).
+    for s in cfg.playlist_sources:
+        respx.get(s.url).mock(return_value=httpx.Response(200, text="#EXTM3U\n"))
 
     for url in [
         "https://abcnews.example/stream.m3u8",

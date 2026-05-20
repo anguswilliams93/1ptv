@@ -5,7 +5,7 @@ import httpx
 import pytest
 import respx
 
-from pipeline.config import load_config
+from pipeline.config import PlaylistSource, load_config
 from pipeline.fetch import fetch_channels, fetch_epg_files, fetch_playlist_channels
 
 
@@ -105,25 +105,37 @@ async def test_fetch_epg_files_total_failure_raises(tmp_path):
 
 @pytest.mark.asyncio
 @respx.mock
-async def test_fetch_playlist_channels_downloads_and_parses(fixtures_dir):
+async def test_fetch_playlist_channels_parses_and_applies_group_override(fixtures_dir):
     cfg = load_config(Path("config.yaml"))
-    body = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(200, content=body))
+    cfg.playlist_sources = [
+        PlaylistSource(url="https://src.example/free.m3u8"),
+        PlaylistSource(url="https://src.example/fast.m3u8", group="USA"),
+    ]
+    free = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
+    fast = (
+        b"#EXTM3U\n"
+        b'#EXTINF:-1 tvg-id="Pluto1.us" group-title="News",Pluto News\n'
+        b"https://fast.example/1.m3u8\n"
+    )
+    respx.get("https://src.example/free.m3u8").mock(return_value=httpx.Response(200, content=free))
+    respx.get("https://src.example/fast.m3u8").mock(return_value=httpx.Response(200, content=fast))
 
     channels = await fetch_playlist_channels(cfg)
-    ids = {c.id for c in channels if c.id}
-    assert "BBCOne.uk" in ids
-    assert "CBS.us" in ids
-    assert len(channels) == 8  # all entries, unfiltered
+
+    # Free-TV channels keep their own country group-titles.
+    assert any(c.group == "UK" for c in channels)
+    # FAST channel is forced into the source's group, not its genre group-title.
+    pluto = next(c for c in channels if c.id == "Pluto1.us")
+    assert pluto.group == "USA"
+    assert len(channels) == 9  # 8 from free + 1 from fast
 
 
 @pytest.mark.asyncio
 @respx.mock
 async def test_fetch_playlist_channels_all_fail_raises():
     cfg = load_config(Path("config.yaml"))
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(500))
+    for s in cfg.playlist_sources:
+        respx.get(s.url).mock(return_value=httpx.Response(500))
 
     with pytest.raises(RuntimeError, match="all playlist sources failed"):
         await fetch_playlist_channels(cfg)
