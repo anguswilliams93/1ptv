@@ -17,6 +17,23 @@ class HealthcheckConfig:
 
 
 @dataclass
+class PlaylistSource:
+    """An external M3U source. ``group``, when set, forces every channel from
+    this source into that group — used for region-per-URL FAST providers whose
+    own group-titles are genres rather than countries. When ``group`` is None
+    the channel's own group-title is kept (filtered by playlist_include_groups).
+    """
+    url: str
+    group: str | None = None
+
+
+def _parse_playlist_source(item) -> PlaylistSource:
+    if isinstance(item, str):
+        return PlaylistSource(url=item)
+    return PlaylistSource(url=str(item["url"]), group=item.get("group"))
+
+
+@dataclass
 class Config:
     include_countries: list[str]
     include_channel_ids: list[str]
@@ -33,7 +50,7 @@ class Config:
     epg_id_map: dict[str, str]
     iptv_org: dict[str, str]
     output_epg_url: str
-    playlist_sources: list[str]
+    playlist_sources: list[PlaylistSource]
     playlist_include_groups: list[str]
 
 
@@ -72,6 +89,6 @@ def _from_raw(raw: dict) -> Config:
         epg_id_map={str(k): str(v) for k, v in (raw.get("epg_id_map") or {}).items()},
         iptv_org=dict(raw["iptv_org"]),
         output_epg_url=str(raw["output"]["epg_url"]),
-        playlist_sources=list(raw.get("playlist_sources") or []),
+        playlist_sources=[_parse_playlist_source(s) for s in (raw.get("playlist_sources") or [])],
         playlist_include_groups=list(raw.get("playlist_include_groups") or []),
     )

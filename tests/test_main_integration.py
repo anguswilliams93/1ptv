@@ -29,14 +29,21 @@ async def test_full_run_produces_outputs(tmp_path, fixtures_dir, monkeypatch):
     epg_au = (fixtures_dir / "epg_sample_au.xml").read_bytes()
     epg_uk = (fixtures_dir / "epg_sample_uk.xml").read_bytes()
     minimal = b"<?xml version=\"1.0\"?><tv/>"
-    respx.get(cfg.epg_sources["AU"]).mock(return_value=httpx.Response(200, content=gzip.compress(epg_au)))
-    respx.get(cfg.epg_sources["UK"]).mock(return_value=httpx.Response(200, content=gzip.compress(epg_uk)))
-    for code in ("US", "CA", "IE", "QA", "DE", "FR"):
-        respx.get(cfg.epg_sources[code]).mock(return_value=httpx.Response(200, content=gzip.compress(minimal)))
+    for code, url in cfg.epg_sources.items():
+        if code == "AU":
+            content = gzip.compress(epg_au)
+        elif code == "UK":
+            content = gzip.compress(epg_uk)
+        elif url.endswith(".gz"):
+            content = gzip.compress(minimal)
+        else:  # plain .xml FAST-provider EPG
+            content = minimal
+        respx.get(url).mock(return_value=httpx.Response(200, content=content))
 
     freetv = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(200, content=freetv))
+    for s in cfg.playlist_sources:
+        body = freetv if "Free-TV" in s.url else b"#EXTM3U\n"
+        respx.get(s.url).mock(return_value=httpx.Response(200, content=body))
 
     for url in [
         "https://abcnews.example/stream.m3u8",
@@ -112,9 +119,9 @@ async def test_epg_failure_is_non_fatal(tmp_path, fixtures_dir, monkeypatch):
     for url in cfg.epg_sources.values():
         respx.get(url).mock(return_value=httpx.Response(500))
 
-    # Playlist source returns no channels (keeps this test focused on EPG).
-    for url in cfg.playlist_sources:
-        respx.get(url).mock(return_value=httpx.Response(200, text="#EXTM3U\n"))
+    # Playlist sources return no channels (keeps this test focused on EPG).
+    for s in cfg.playlist_sources:
+        respx.get(s.url).mock(return_value=httpx.Response(200, text="#EXTM3U\n"))
 
     for url in [
         "https://abcnews.example/stream.m3u8",
@@ -141,3 +148,50 @@ async def test_epg_failure_is_non_fatal(tmp_path, fixtures_dir, monkeypatch):
     # Error logged in report
     report = json.loads((tmp_path / "build" / "report.json").read_text(encoding="utf-8"))
     assert any("fetch_epg_files" in e for e in report["errors"])
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_iptv_org_failure_is_non_fatal(tmp_path, fixtures_dir, monkeypatch):
+    """A transient iptv-org outage must not fail the build: it still ships the
+    channels supplied by the external playlist sources."""
+    monkeypatch.chdir(tmp_path)
+    cfg_src = Path(__file__).parent.parent / "config.yaml"
+    (tmp_path / "config.yaml").write_text(cfg_src.read_text(encoding="utf-8"), encoding="utf-8")
+    cfg = load_config(tmp_path / "config.yaml")
+
+    # iptv-org is down across the board.
+    for url in cfg.iptv_org.values():
+        respx.get(url).mock(return_value=httpx.Response(503))
+
+    # Free-TV supplies channels; other playlist + EPG sources are empty/down.
+    freetv = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
+    for s in cfg.playlist_sources:
+        body = freetv if "Free-TV" in s.url else b"#EXTM3U\n"
+        respx.get(s.url).mock(return_value=httpx.Response(200, content=body))
+    for url in cfg.epg_sources.values():
+        respx.get(url).mock(return_value=httpx.Response(503))
+
+    for url in [
+        "https://ftv.example/bbcone.m3u8",
+        "https://ftv.example/localuk.m3u8",
+        "https://ftv.example/cbs.m3u8",
+        "https://ftv.example/cbc.m3u8",
+        "https://ftv.example/9gem.m3u8",
+        "https://ftv.example/ttt.m3u8",
+    ]:
+        respx.head(url).mock(return_value=httpx.Response(
+            200, headers={"content-type": "application/vnd.apple.mpegurl"}
+        ))
+
+    # Must not raise despite iptv-org being down.
+    await run()
+
+    playlist = (tmp_path / "build" / "out" / "playlist.m3u").read_text(encoding="utf-8")
+    assert 'tvg-id="BBCOne.uk"' in playlist  # Free-TV channel shipped
+    assert "ABCNews.au" not in playlist      # iptv-org channels absent
+
+    report = json.loads((tmp_path / "build" / "report.json").read_text(encoding="utf-8"))
+    assert report["raw"] == 0
+    assert report["raw_playlist"] == 8
+    assert any("fetch_channels" in e for e in report["errors"])

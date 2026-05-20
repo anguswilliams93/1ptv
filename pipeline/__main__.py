@@ -21,12 +21,14 @@ async def run() -> int:
 
     report: dict = {"errors": []}
 
+    # iptv-org is fetched best-effort: a transient upstream blip (e.g. GitHub
+    # Pages 403/timeout) shouldn't fail the whole build when the external
+    # playlist sources can still supply channels.
+    channels: list = []
     try:
         channels = await fetch.fetch_channels(cfg)
     except Exception as e:
         report["errors"].append(f"fetch_channels: {e!r}")
-        _write_report(build, report, started)
-        raise
 
     fetch.write_raw(channels, build / "1_raw.json")
     report["raw"] = len(channels)

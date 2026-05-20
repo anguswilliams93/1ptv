@@ -108,24 +108,29 @@ async def fetch_playlist_channels(cfg: Config) -> list[Channel]:
     source fails the error is surfaced to the orchestrator (which treats it as
     non-fatal). Returns the concatenation of all parsed channels.
     """
-    if not cfg.playlist_sources:
+    sources = cfg.playlist_sources
+    if not sources:
         return []
 
     async with httpx.AsyncClient(http2=True, follow_redirects=True) as client:
         results = await asyncio.gather(
-            *[_get_with_retry(client, url) for url in cfg.playlist_sources],
+            *[_get_with_retry(client, s.url) for s in sources],
             return_exceptions=True,
         )
 
     failures = [r for r in results if isinstance(r, BaseException)]
-    if failures and len(failures) == len(cfg.playlist_sources):
+    if failures and len(failures) == len(sources):
         raise RuntimeError(f"all playlist sources failed: {failures[0]!r}")
 
     out: list[Channel] = []
-    for r in results:
+    for src, r in zip(sources, results):
         if isinstance(r, BaseException):
             continue
-        out.extend(parse_m3u(r.text))
+        channels = parse_m3u(r.text)
+        if src.group is not None:
+            for c in channels:
+                c.group = src.group
+        out.extend(channels)
     return out
 
 
