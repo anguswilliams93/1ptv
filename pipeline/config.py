@@ -30,6 +30,7 @@ class Config:
     healthcheck: HealthcheckConfig
     group_order: list[str]
     epg_sources: dict[str, str]
+    epg_id_map: dict[str, str]
     iptv_org: dict[str, str]
     output_epg_url: str
 
@@ -66,6 +67,7 @@ def _from_raw(raw: dict) -> Config:
         ),
         group_order=list(raw["group_order"]),
         epg_sources=dict(raw["epg_sources"]),
+        epg_id_map={str(k): str(v) for k, v in (raw.get("epg_id_map") or {}).items()},
         iptv_org=dict(raw["iptv_org"]),
         output_epg_url=str(raw["output"]["epg_url"]),
     )

@@ -60,6 +60,14 @@ async def test_full_run_produces_outputs(tmp_path, fixtures_dir, monkeypatch):
     assert "alive" in report
     assert report["alive"] >= 4
 
+    # EPG coverage is reported: ABCNews.au and BBCNews.uk have programmes in the
+    # sample sources, so they populate; the rest list without a guide.
+    assert report["epg"]["total"] == report["alive"]
+    assert report["epg"]["with_epg"] == 2
+    assert report["epg"]["with_epg"] < report["epg"]["total"]
+    assert "ABCNews.au" not in report["epg"]["missing_ids"]
+    assert "Seven.au" in report["epg"]["missing_ids"]
+
 
 @pytest.mark.asyncio
 @respx.mock

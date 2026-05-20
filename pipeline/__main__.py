@@ -53,7 +53,14 @@ async def run() -> int:
         epg_paths = {}
 
     emit.emit_playlist(healthy, cfg, out / "playlist.m3u")
-    emit.emit_epg(healthy, list(epg_paths.values()), out / "epg.xml.gz")
+    populated = emit.emit_epg(
+        healthy, list(epg_paths.values()), out / "epg.xml.gz", id_map=cfg.epg_id_map
+    )
+    report["epg"] = {
+        "with_epg": len(populated),
+        "total": len(healthy),
+        "missing_ids": sorted(c.id for c in healthy if c.id not in populated),
+    }
 
     _write_report(build, report, started)
     return 0

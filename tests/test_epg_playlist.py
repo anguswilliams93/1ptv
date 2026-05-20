@@ -123,6 +123,33 @@ def test_epg_only_populates_channels_whose_ids_match_source(tmp_path):
     assert populated.isdisjoint({"Channel7.au", "Channel9.au", "9Gem.au", "9Go.au"})
 
 
+def test_id_map_closes_the_coverage_gap(tmp_path):
+    """The fix for "only N populating": mapping the divergent upstream ids onto
+    the playlist tvg-ids makes every channel populate."""
+    cfg = load_config(Path("config.yaml"))
+    channels = [
+        _ch(id="ABCNews.au", name="ABC News"),
+        _ch(id="Channel7.au", name="Seven"),
+        _ch(id="Channel9.au", name="Nine"),
+        _ch(id="9Gem.au", name="9Gem"),
+    ]
+    src = _write_epg(
+        tmp_path / "src.xml",
+        channel_ids=["ABCNews.au", "7HD.au", "9HD.au", "9GEM.au"],
+    )
+    id_map = {"7HD.au": "Channel7.au", "9HD.au": "Channel9.au", "9GEM.au": "9Gem.au"}
+
+    playlist = tmp_path / "playlist.m3u"
+    epg_out = tmp_path / "epg.xml.gz"
+    emit_playlist(channels, cfg, playlist)
+    populated = emit_epg(channels, [src], epg_out, id_map=id_map)
+
+    tvg_ids = set(_playlist_tvg_ids(playlist))
+    assert populated == tvg_ids  # full coverage after mapping
+    assert _epg_programme_channels(epg_out) == tvg_ids
+    assert "7HD.au" not in _epg_channel_ids(epg_out)  # rewritten to the tvg-id
+
+
 def test_epg_is_empty_when_no_playlist_id_matches_source(tmp_path):
     """Worst case: a wholesale id-scheme mismatch yields zero EPG coverage."""
     cfg = load_config(Path("config.yaml"))

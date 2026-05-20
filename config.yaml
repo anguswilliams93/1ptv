@@ -82,6 +82,16 @@ epg_sources:
   DE: https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz
   FR: https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz
 
+# Maps an upstream EPG channel id (left) to the playlist tvg-id (right, an
+# iptv-org id). A channel only shows guide data when its tvg-id matches a
+# <channel>/<programme> id in the merged xmltv; epgshare01 uses its own id
+# scheme, so unmapped channels list in the playlist but stay blank in the
+# guide. Fill this in using report.json -> epg.missing_ids after a build.
+epg_id_map: {}
+  # Example (verify against the real epg_ripper_AU1.xml.gz channel ids):
+  # 7HD.au: Channel7.au
+  # 9HD.au: Channel9.au
+
 iptv_org:
   streams:    https://iptv-org.github.io/api/streams.json
   channels:   https://iptv-org.github.io/api/channels.json
