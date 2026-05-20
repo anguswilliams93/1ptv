@@ -38,13 +38,19 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
       - run: pip install -r requirements.txt
+      # Persist the healthcheck state across runs so the quarantine grace works:
+      # channels proven alive tolerate transient failures, while never-alive ones
+      # (dead/403) are dropped. Without this the counter resets every run.
+      - name: Restore healthcheck state
+        uses: actions/cache@v4
+        with:
+          path: build/_state.json
+          key: healthcheck-state-${{ github.run_id }}
+          restore-keys: |
+            healthcheck-state-
       - run: python -m pipeline
       - name: Append report to job summary
-        run: |
-          echo '## Build report' >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          cat build/report.json >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+        run: python scripts/job_summary.py build/report.json >> "$GITHUB_STEP_SUMMARY"
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

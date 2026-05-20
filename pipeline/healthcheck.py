@@ -37,6 +37,20 @@ def _ct_alive(content_type: str | None) -> bool:
     return ct in ALIVE_CONTENT_TYPES
 
 
+def _should_publish(entry: dict, hc: HealthcheckConfig) -> bool:
+    """Whether a probed channel belongs in the output.
+
+    A channel is published if its latest probe is alive, or if it has a proven
+    history of being alive and is still within the transient-failure grace
+    window. Channels that have never probed alive (e.g. CDN/geo 403s) are
+    dropped immediately rather than shipped while the quarantine counter — which
+    resets whenever state isn't persisted between runs — counts up to threshold.
+    """
+    if entry.get("last_status") == "alive":
+        return True
+    return bool(entry.get("ever_alive")) and entry.get("consecutive_failures", 0) < hc.quarantine_threshold
+
+
 async def _probe_one(client: httpx.AsyncClient, ch: Channel, hc: HealthcheckConfig) -> bool:
     headers = {"User-Agent": hc.user_agent}
     try:
@@ -72,10 +86,14 @@ async def check_channels(
         async def _one(ch: Channel) -> Channel:
             async with sem:
                 alive = await _probe_one(client, ch, hc)
-            entry = state.get(ch.url, {"consecutive_failures": 0, "last_status": "unknown"})
+            entry = state.get(
+                ch.url,
+                {"consecutive_failures": 0, "last_status": "unknown", "ever_alive": False},
+            )
             if alive:
                 entry["consecutive_failures"] = 0
                 entry["last_status"] = "alive"
+                entry["ever_alive"] = True
                 ch.status = "alive"
             else:
                 entry["consecutive_failures"] = entry.get("consecutive_failures", 0) + 1
@@ -89,7 +107,7 @@ async def check_channels(
 
     save_state(state_path, state)
 
-    return [c for c in probed if state[c.url]["consecutive_failures"] < hc.quarantine_threshold]
+    return [c for c in probed if _should_publish(state[c.url], hc)]
 
 
 def write(channels: list[Channel], path: Path) -> None:

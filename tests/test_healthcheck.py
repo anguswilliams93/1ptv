@@ -44,13 +44,34 @@ async def test_alive_when_status_ok_and_content_type_matches(tmp_path):
 
 @pytest.mark.asyncio
 @respx.mock
-async def test_dead_channel_dropped_only_after_threshold(tmp_path):
+async def test_never_alive_dead_channel_dropped_immediately(tmp_path):
+    """A channel that has never probed alive (e.g. NASA TV's CDN 403) is not
+    shipped, even on its first failure — no quarantine grace for the unproven."""
+    url = "https://geoblocked.example/stream.m3u8"
+    respx.head(url).mock(return_value=httpx.Response(403))
+    respx.get(url).mock(return_value=httpx.Response(403))
+
+    state_path = tmp_path / "_state.json"
+    result = await check_channels([_ch(url)], _hc(threshold=3), state_path)
+
+    assert result == []
+    # still tracked as dead, just not published
+    assert load_state(state_path)[url]["consecutive_failures"] == 1
+    assert load_state(state_path)[url]["ever_alive"] is False
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_previously_alive_channel_gets_quarantine_grace(tmp_path):
+    """A channel with a proven alive history keeps its grace window for
+    transient failures, dropping only once it hits the threshold."""
     url = "https://dead.example/stream.m3u8"
     chans = [_ch(url)]
     respx.head(url).mock(return_value=httpx.Response(500))
     respx.get(url).mock(return_value=httpx.Response(500))
 
     state_path = tmp_path / "_state.json"
+    save_state(state_path, {url: {"consecutive_failures": 0, "last_status": "alive", "ever_alive": True}})
     hc = _hc(threshold=3)
 
     # 1st failure — still in output (1 < 3)
