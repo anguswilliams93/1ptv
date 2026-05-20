@@ -65,6 +65,12 @@ healthcheck:
 
 group_order:
   - "AU FTA"
+  - Australia
+  - UK
+  - USA
+  - Canada
+  - Ireland
+  - Trinidad
   - News
   - Sport
   - Movies
@@ -78,6 +84,8 @@ epg_sources:
   AU: https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz
   UK: https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz
   US: https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz
+  CA: https://epgshare01.online/epgshare01/epg_ripper_CA1.xml.gz
+  IE: https://epgshare01.online/epgshare01/epg_ripper_IE1.xml.gz
   QA: https://epgshare01.online/epgshare01/epg_ripper_QA1.xml.gz
   DE: https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz
   FR: https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz
@@ -100,3 +108,17 @@ iptv_org:
 
 output:
   epg_url: https://anguswilliams93.github.io/1ptv/epg.xml.gz
+
+# External M3U playlists merged in alongside the iptv-org channels. Their
+# tvg-ids align with epgshare01, so EPG auto-populates from epg_sources above.
+playlist_sources:
+  - https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+
+# group-title values to keep from playlist_sources (English-language markets).
+playlist_include_groups:
+  - Australia
+  - UK
+  - USA
+  - Canada
+  - Ireland
+  - Trinidad

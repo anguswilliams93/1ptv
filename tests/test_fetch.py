@@ -6,7 +6,7 @@ import pytest
 import respx
 
 from pipeline.config import load_config
-from pipeline.fetch import fetch_channels, fetch_epg_files
+from pipeline.fetch import fetch_channels, fetch_epg_files, fetch_playlist_channels
 
 
 @pytest.mark.asyncio
@@ -101,3 +101,36 @@ async def test_fetch_epg_files_total_failure_raises(tmp_path):
 
     with pytest.raises(RuntimeError, match="all EPG sources failed"):
         await fetch_epg_files(cfg, tmp_path / "epg")
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_fetch_playlist_channels_downloads_and_parses(fixtures_dir):
+    cfg = load_config(Path("config.yaml"))
+    body = (fixtures_dir / "freetv_sample.m3u8").read_bytes()
+    for url in cfg.playlist_sources:
+        respx.get(url).mock(return_value=httpx.Response(200, content=body))
+
+    channels = await fetch_playlist_channels(cfg)
+    ids = {c.id for c in channels if c.id}
+    assert "BBCOne.uk" in ids
+    assert "CBS.us" in ids
+    assert len(channels) == 8  # all entries, unfiltered
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_fetch_playlist_channels_all_fail_raises():
+    cfg = load_config(Path("config.yaml"))
+    for url in cfg.playlist_sources:
+        respx.get(url).mock(return_value=httpx.Response(500))
+
+    with pytest.raises(RuntimeError, match="all playlist sources failed"):
+        await fetch_playlist_channels(cfg)
+
+
+@pytest.mark.asyncio
+async def test_fetch_playlist_channels_empty_when_unconfigured():
+    cfg = load_config(Path("config.yaml"))
+    cfg.playlist_sources = []
+    assert await fetch_playlist_channels(cfg) == []

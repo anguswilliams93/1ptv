@@ -20,6 +20,9 @@ def test_load_config_from_project_root():
     assert cfg.iptv_org["streams"].endswith("streams.json")
     assert cfg.output_epg_url.startswith("https://")
     assert cfg.epg_id_map == {}
+    assert any("Free-TV" in s for s in cfg.playlist_sources)
+    assert "UK" in cfg.playlist_include_groups
+    assert "USA" in cfg.playlist_include_groups
 
 
 def test_epg_id_map_parses_string_pairs(tmp_path):

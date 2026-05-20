@@ -31,7 +31,17 @@ async def run() -> int:
     fetch.write_raw(channels, build / "1_raw.json")
     report["raw"] = len(channels)
 
-    filtered = filt.filter_channels(channels, cfg)
+    playlist_channels: list = []
+    try:
+        playlist_channels = await fetch.fetch_playlist_channels(cfg)
+    except Exception as e:
+        report["errors"].append(f"fetch_playlist_channels: {e!r}")
+    fetch.write_raw(playlist_channels, build / "1_raw_playlist.json")
+    report["raw_playlist"] = len(playlist_channels)
+
+    filtered = filt.filter_channels(channels, cfg) + filt.filter_playlist_channels(
+        playlist_channels, cfg
+    )
     filt.write(filtered, build / "2_filtered.json")
     report["filtered"] = len(filtered)
     report["by_group_after_filter"] = _count_by_group(filtered)
