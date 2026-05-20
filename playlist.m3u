@@ -1,6 +1,14 @@
 #EXTM3U url-tvg="https://anguswilliams93.github.io/1ptv/epg.xml.gz" x-tvg-url="https://anguswilliams93.github.io/1ptv/epg.xml.gz"
 #EXTINF:-1 tvg-id="10Bold.au" tvg-logo="" group-title="AU FTA" tvg-chno="12",10 Bold
 https://dce3793146fef017.mediapackage.us-west-2.amazonaws.com/out/v1/55cdf73af7894775ba6de8f57482b66a/CMAF_HLS/index.m3u8
+#EXTINF:-1 tvg-id="9Gem.au" tvg-logo="" group-title="AU FTA" tvg-chno="92",9Gem
+https://9now-livestreams.akamaized.net/hls/live/2008311/gem-syd/master.m3u8
+#EXTINF:-1 tvg-id="9Go.au" tvg-logo="" group-title="AU FTA" tvg-chno="93",9Go!
+https://9now-livestreams.akamaized.net/hls/live/2008312/go-syd/master.m3u8
+#EXTINF:-1 tvg-id="9Life.au" tvg-logo="" group-title="AU FTA" tvg-chno="94",9Life
+https://9now-livestreams.akamaized.net/hls/live/2008313/life-syd/master.m3u8
+#EXTINF:-1 tvg-id="ABCTV.au" tvg-logo="https://i.imgur.com/5CVl5EF.png" group-title="AU FTA" tvg-chno="2",ABC
+https://c.mjh.nz/101002210221/
 #EXTINF:-1 tvg-id="ABCEntertains.au" tvg-logo="" group-title="AU FTA" tvg-chno="23",ABC Entertains
 https://c.mjh.nz/abc-me.m3u8
 #EXTINF:-1 tvg-id="ABCKids.au" tvg-logo="" group-title="AU FTA" tvg-chno="22",ABC Kids
@@ -11,6 +19,12 @@ https://c.mjh.nz/abc-news.m3u8
 https://c.mjh.nz/abc-nt.m3u8
 #EXTINF:-1 tvg-id="ABCTVPlus.au" tvg-logo="" group-title="AU FTA" tvg-chno="22",ABC TV Plus
 https://c.mjh.nz/abc-tv-plus.m3u8
+#EXTINF:-1 tvg-id="Channel7.au" tvg-logo="" group-title="AU FTA" tvg-chno="7",Channel 7
+https://npc.cdn.7livecloud.io/hls/live/SYD1/master.m3u8
+#EXTINF:-1 tvg-id="Channel9.au" tvg-logo="" group-title="AU FTA" tvg-chno="9",Channel 9
+https://9now-livestreams-fhd-t.akamaized.net/u/prod/simulcast/adl/ch9/hls/r1/index.m3u8
+#EXTINF:-1 tvg-id="Racingcom.au" tvg-logo="https://i.imgur.com/pma0OCf.png" group-title="Australia",Racing.com
+https://racingvic-i.akamaized.net/hls/live/598695/racingvic/1500.m3u8
 #EXTINF:-1 tvg-id="ArirangWorld.kr" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/67cfa9368d2d135744732a3aed3baecb3fadcf13/countries/international/arirang-int.png" group-title="UK",Arirang World
 http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b2256000_sleng.m3u8
 #EXTINF:-1 tvg-id="BBCRadioWorldService.uk" tvg-logo="https://experiencersinternational.github.io/tvsetup/tvg-ico/bbcws-epg.png" group-title="UK",BBC World Service
@@ -33,8 +47,12 @@ https://qvcuk-live.akamaized.net/hls/live/2097112/qex/3/3.m3u8
 https://qvcuk-live.akamaized.net/hls/live/2097112/qst/3/3.m3u8
 #EXTINF:-1 tvg-id="QVCUK.uk" tvg-logo="https://i.imgur.com/6TWUVrh.png" group-title="UK",QVC UK Ⓢ
 https://qvcuk-live.akamaized.net/hls/live/2097112/qvc/3/3.m3u8
+#EXTINF:-1 tvg-id="SkyNews.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Sky_News_logo.svg/1024px-Sky_News_logo.svg.png" group-title="UK",Sky News
+https://linear021-gb-hls1-prd-ak.cdn.skycdp.com/Content/HLS_001_hd/Live/channel(skynews)/index_mob.m3u8
 #EXTINF:-1 tvg-id="TJC.uk" tvg-logo="https://i.imgur.com/fk5rEje.png" group-title="UK",TJC
 https://cdn-shop-lc-01.akamaized.net/Content/HLS_HLS/Live/channel(TJCOTT)/index.m3u8
+#EXTINF:-1 tvg-id="TRTWorld.tr" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/TRT_World.svg/512px-TRT_World.svg.png" group-title="UK",TRT World
+https://api.trtworld.com/livestream/v1/WcM3Oa2LHD9iUjWDSRUI335NkMWVTUV351H56dqC/master.m3u8
 #EXTINF:-1 tvg-id="BBCFood.us" tvg-logo="https://i.imgur.com/N3xiz4m.png" group-title="USA",BBC Food
 https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/5fb5844bf5514d0007945bda/master.m3u8?deviceId=channel&deviceModel=web&deviceVersion=1.0&appVersion=1.0&deviceType=rokuChannel&deviceMake=rokuChannel&deviceDNT=1&advertisingId=channel&embedPartner=rokuChannel&appName=rokuchannel&is_lat=1&bmodel=bm1&content=channel&platform=web&tags=ROKU_CONTENT_TAGS&coppa=false&content_type=livefeed&rdid=channel&genre=ROKU_ADS_CONTENT_GENRE&content_rating=ROKU_ADS_CONTENT_RATING&studio_id=viacom&channel_id=channel
 #EXTINF:-1 tvg-id="BBCHome.us" tvg-logo="https://i.imgur.com/Ii8DX1x.png" group-title="USA",BBC Home
@@ -43,10 +61,20 @@ https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/5fb5836fe
 https://bloomberg.com/media-manifest/streams/us.m3u8
 #EXTINF:-1 tvg-id="CBSNews.us" tvg-logo="https://i.imgur.com/nki2HDQ.png" group-title="USA",CBS News
 https://cbsnews.akamaized.net/hls/live/2020607/cbsnlineup_8/master.m3u8
+#EXTINF:-1 tvg-id="CNN.us" tvg-logo="https://i.imgur.com/vyrc1I1.png" group-title="USA",CNN
+https://tve-live-lln.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
+#EXTINF:-1 tvg-id="HeartlandEastern.us" tvg-logo="https://i.imgur.com/a67bbag.png" group-title="USA",Heartland
+https://bcovlive-a.akamaihd.net/1ad942d15d9643bea6d199b729e79e48/us-east-1/6183977686001/profile_1/chunklist.m3u8
 #EXTINF:-1 tvg-id="Boni-Records.com.us" tvg-logo="http://media.boni-records.com/logo.png" group-title="USA",Music Channel
 http://media.boni-records.com/index.m3u8
 #EXTINF:-1 tvg-id="NASATVMedia.us" tvg-logo="https://i.imgur.com/rmyfoOI.png" group-title="USA",NASA TV Media
 https://ntv2.akamaized.net/hls/live/2013923/NASA-NTV2-HLS/master.m3u8
+#EXTINF:-1 tvg-id="RetroTVEast.us" tvg-logo="https://i.imgur.com/PNTYOgg.png" group-title="USA",Retro TV
+https://bcovlive-a.akamaihd.net/5e531be3ed6c41229b2af2d9bffba88d/us-east-1/6183977686001/profile_1/chunklist.m3u8
+#EXTINF:-1 tvg-id="RevnTV.us" tvg-logo="https://i.imgur.com/VUhqVgG.png" group-title="USA",Rev'n
+https://bcovlive-a.akamaihd.net/a71236fdda1747999843bd3d55bdd6fa/us-east-1/6183977686001/profile_1/chunklist.m3u8
+#EXTINF:-1 tvg-id="CPACEnglish.ca" tvg-logo="https://i.imgur.com/AbdFD0S.png" group-title="Canada",CPAC (EN)
+https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/.m3u8
 #EXTINF:-1 tvg-id="CBFTDT.ca" tvg-logo="https://i.imgur.com/Z1b2TJD.png" group-title="Canada",ICI Montreal
 https://amdici.akamaized.net/hls/live/873426/ICI-Live-Stream/master.m3u8
 #EXTINF:-1 tvg-id="IciRDI.ca" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/ICI_RDI_logo.svg/640px-ICI_RDI_logo.svg.png" group-title="Canada",ICI RDI
@@ -55,6 +83,10 @@ https://rcavlive.akamaized.net/hls/live/704025/xcanrdi/master.m3u8
 https://hls.savoir.media/live/stream.m3u8
 #EXTINF:-1 tvg-id="Toronto360.tv" tvg-logo="https://i.imgur.com/PkWndsv.png" group-title="Canada",Toronto 360 TV
 http://cdn3.toronto360.tv:8081/toronto360/hd/playlist.m3u8
+#EXTINF:-1 tvg-id="CIVMDT.ca" tvg-logo="https://i.imgur.com/8grBWK9.png" group-title="Canada",Télé Québec
+https://bcovlive-a.akamaihd.net/575d86160eb143458d51f7ab187a4e68/us-east-1/6101674910001/playlist.m3u8
+#EXTINF:-1 tvg-id="OireachtasTV.ie" tvg-logo="https://i.imgur.com/aC4fsCI.png" group-title="Ireland",Houses of the Oireachtas Channel
+https://d33zah5htxvoxb.cloudfront.net/el/live/oirtv/hls.m3u8
 #EXTINF:-1 tvg-id="2GB.au" tvg-logo="" group-title="News",2GB
 https://2gblive.akamaized.net/hls/live/2033805/2GB/index.m3u8
 #EXTINF:-1 tvg-id="3AW.au" tvg-logo="" group-title="News",3AW
@@ -75,6 +107,14 @@ https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3
 https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
 #EXTINF:-1 tvg-id="SkyNewsExtra3.au" tvg-logo="" group-title="News",Sky News Extra 3
 https://skynewsau-live.akamaized.net/hls/live/2002691/skynewsau-extra3/master.m3u8
+#EXTINF:-1 tvg-id="SkyRacing1.au" tvg-logo="" group-title="Sport",Sky Racing 1
+https://skylivetab-new.akamaized.net/hls/live/2038780/sky1/index.m3u8
+#EXTINF:-1 tvg-id="SkyRacing2.au" tvg-logo="" group-title="Sport",Sky Racing 2
+https://skylivetab-new.akamaized.net/hls/live/2038781/sky2/index.m3u8
+#EXTINF:-1 tvg-id="SkyThoroughbredCentral.au" tvg-logo="" group-title="Sport",Sky Thoroughbred Central
+https://skylivetab-new.akamaized.net/hls/live/2038782/stcsd/index.m3u8
+#EXTINF:-1 tvg-id="ABCAustralia.au" tvg-logo="" group-title="Entertainment",ABC Australia
+https://cdn10jtedge.indihometv.com/atm/DASH/ABC_AUSTRALIA/manifest.mpd
 #EXTINF:-1 tvg-id="C31Melbourne.au" tvg-logo="" group-title="Entertainment",C31 Melbourne
 https://d1k6kax80wecy5.cloudfront.net/RLnAKY/index.m3u8
 #EXTINF:-1 tvg-id="Channel44.au" tvg-logo="" group-title="Entertainment",Channel 44
