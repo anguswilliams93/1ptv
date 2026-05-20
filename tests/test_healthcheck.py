@@ -44,9 +44,9 @@ async def test_alive_when_status_ok_and_content_type_matches(tmp_path):
 
 @pytest.mark.asyncio
 @respx.mock
-async def test_never_alive_dead_channel_dropped_immediately(tmp_path):
-    """A channel that has never probed alive (e.g. NASA TV's CDN 403) is not
-    shipped, even on its first failure — no quarantine grace for the unproven."""
+async def test_geoblocked_403_is_kept_as_reachable(tmp_path):
+    """A 403 means the origin is up but geo/auth-gating the CI IP (e.g. Channel
+    9 / Sky News). It plays in-region, so it must be kept, not dropped."""
     url = "https://geoblocked.example/stream.m3u8"
     respx.head(url).mock(return_value=httpx.Response(403))
     respx.get(url).mock(return_value=httpx.Response(403))
@@ -54,24 +54,40 @@ async def test_never_alive_dead_channel_dropped_immediately(tmp_path):
     state_path = tmp_path / "_state.json"
     result = await check_channels([_ch(url)], _hc(threshold=3), state_path)
 
-    assert result == []
-    # still tracked as dead, just not published
-    assert load_state(state_path)[url]["consecutive_failures"] == 1
-    assert load_state(state_path)[url]["ever_alive"] is False
+    assert len(result) == 1
+    assert result[0].status == "reachable"
+    # 'reachable' is not a failure — the counter stays at zero.
+    assert load_state(state_path)[url]["consecutive_failures"] == 0
 
 
 @pytest.mark.asyncio
 @respx.mock
-async def test_previously_alive_channel_gets_quarantine_grace(tmp_path):
-    """A channel with a proven alive history keeps its grace window for
-    transient failures, dropping only once it hits the threshold."""
+async def test_protected_channel_kept_even_when_dead(tmp_path):
+    """User-curated channels (au_fta_ids / include_channel_ids) are kept even if
+    the endpoint looks dead from here."""
+    url = "https://gone.example/stream.m3u8"
+    respx.head(url).mock(return_value=httpx.Response(404))
+    respx.get(url).mock(return_value=httpx.Response(404))
+
+    result = await check_channels(
+        [_ch(url, cid="Channel9.au")], _hc(threshold=1), tmp_path / "_state.json",
+        protected_ids={"Channel9.au"},
+    )
+    assert len(result) == 1
+    assert result[0].status == "dead"  # tracked as dead, but kept because protected
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_dead_endpoint_gets_grace_then_dropped(tmp_path):
+    """A genuinely dead endpoint (404) is tolerated within the grace window and
+    dropped once consecutive failures reach the threshold."""
     url = "https://dead.example/stream.m3u8"
     chans = [_ch(url)]
-    respx.head(url).mock(return_value=httpx.Response(500))
-    respx.get(url).mock(return_value=httpx.Response(500))
+    respx.head(url).mock(return_value=httpx.Response(404))
+    respx.get(url).mock(return_value=httpx.Response(404))
 
     state_path = tmp_path / "_state.json"
-    save_state(state_path, {url: {"consecutive_failures": 0, "last_status": "alive", "ever_alive": True}})
     hc = _hc(threshold=3)
 
     # 1st failure — still in output (1 < 3)
