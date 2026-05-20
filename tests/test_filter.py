@@ -103,3 +103,13 @@ def test_playlist_filter_keeps_empty_tvg_id_channel():
     out = filter_playlist_channels([_pl(id="", group="UK", name="Local UK")], cfg)
     assert len(out) == 1
     assert out[0].id == ""
+
+
+def test_playlist_filter_drops_geo_blocked_marker():
+    cfg = load_config(Path("config.yaml"))
+    chans = [
+        _pl(id="BBCOne.uk", group="UK", name="BBC One Ⓖ"),
+        _pl(id="E4.uk", group="UK", name="E4 Ⓢ"),
+    ]
+    out = filter_playlist_channels(chans, cfg)
+    assert [c.id for c in out] == ["E4.uk"]  # Ⓖ dropped, Ⓢ kept
