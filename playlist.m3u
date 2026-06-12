@@ -127,8 +127,6 @@ https://jmp2.uk/plu-5fab088b3279760007d4e4fd.m3u8
 http://tv1.intv.mk:1935/live2/folkklub/index.m3u8
 #EXTINF:-1 tvg-id="INTVAustralia.au" tvg-logo="" group-title="Music",INTV Australia
 http://tv1.intv.mk:1935/live/intv/index.m3u8
-#EXTINF:-1 tvg-id="MTVClassic.au" tvg-logo="" group-title="Music",MTV Classic
-https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8
 #EXTINF:-1 tvg-id="AusbizTV.au" tvg-logo="" group-title="Other",Ausbiz TV
 https://d9quh89lh7dtw.cloudfront.net/public-output/index.m3u8
 #EXTINF:-1 tvg-id="WeatherSpy.au" tvg-logo="" group-title="Other",WeatherSpy
