@@ -56,9 +56,16 @@ async def run() -> int:
     # most are region-locked broadcast streams that 403 from the CI runner's IP
     # but play fine in-region.
     protected = set(cfg.au_fta_ids) | set(cfg.include_channel_ids)
-    healthy = await healthcheck.check_channels(
-        deduped, cfg.healthcheck, build / "_state.json", protected
-    )
+
+    try:
+        healthy = await healthcheck.check_channels(
+            deduped, cfg.healthcheck, build / "_state.json", protected
+        )
+    except Exception as e:
+        report["errors"].append(f"healthcheck.check_channels: {e!r}")
+        # fail-open: keep deduped channels when probe infrastructure is flaky
+        healthy = deduped
+
     healthcheck.write(healthy, build / "4_healthy.json")
     report["alive"] = len(healthy)
     report["dead"] = len(deduped) - len(healthy)
