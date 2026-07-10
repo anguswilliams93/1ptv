@@ -88,6 +88,11 @@ async def run() -> int:
     }
 
     _write_report(build, report, started)
+
+    # Fail the CI job when nothing survived — better than publishing an empty list.
+    if report["alive"] == 0:
+        print("error: zero channels published; refusing empty playlist", file=sys.stderr)
+        return 1
     return 0
 
 

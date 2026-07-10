@@ -8,6 +8,15 @@ include:
     - DW.de
     - France24.fr
 
+# Channel discovery (weekly Action + `python -m pipeline.discover`).
+# Suggests iptv-org channels that match these rules but are not already covered
+# by include.countries / include.channel_ids / au_fta_ids.
+discovery:
+  countries: [AU, GB, US, CA, IE, TT]
+  require_english: true
+  categories: []          # empty = any non-excluded category
+  max_candidates: 40
+
 exclude:
   categories: [shop, religious, auto, xxx]
   channel_ids: []

@@ -1,7 +1,8 @@
 name: build
 on:
   schedule:
-    - cron: '0 7 * * *'   # daily at 07:00 UTC = 5pm Sydney (AEST, UTC+10)
+    # Every 6h (design: steady guide; primary consume refresh is daily-ish).
+    - cron: '0 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -10,6 +11,17 @@ on:
       - 'config.yaml'
       - 'requirements.txt'
       - '.github/workflows/build.yml'
+  pull_request:
+    paths:
+      - 'pipeline/**'
+      - 'config.yaml'
+      - 'requirements.txt'
+      - '.github/workflows/build.yml'
+      - 'tests/**'
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -28,6 +40,8 @@ jobs:
       - run: pytest -v
 
   build:
+    # Don't publish from PRs — only main / schedule / manual.
+    if: github.event_name != 'pull_request'
     needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -38,20 +52,37 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      # Persist the healthcheck state across runs so the quarantine grace works:
-      # channels proven alive tolerate transient failures, while never-alive ones
-      # (dead/403) are dropped. Without this the counter resets every run.
+
+      # Stable key so restore hits; counter persists across runs (quarantine grace).
       - name: Restore healthcheck state
         uses: actions/cache@v4
         with:
           path: build/_state.json
-          key: healthcheck-state-${{ github.run_id }}
+          key: healthcheck-state-v1
           restore-keys: |
             healthcheck-state-
+
       - run: python -m pipeline
+
       - name: Append report to job summary
+        if: always()
         continue-on-error: true
-        run: python scripts/job_summary.py build/report.json >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          if [ -f build/report.json ]; then
+            python scripts/job_summary.py build/report.json >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report-${{ github.run_number }}
+          path: |
+            build/report.json
+            build/out/
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
