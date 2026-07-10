@@ -13,7 +13,7 @@ def _included(ch: Channel, cfg: Config) -> bool:
     return ch.id in cfg.include_channel_ids
 
 
-def _excluded(ch: Channel, cfg: Config) -> bool:
+def is_excluded(ch: Channel, cfg: Config) -> bool:
     if ch.id in cfg.exclude_channel_ids:
         return True
     if any(cat in cfg.exclude_categories for cat in ch.categories):
@@ -37,7 +37,7 @@ def filter_channels(channels: list[Channel], cfg: Config) -> list[Channel]:
     for ch in channels:
         if not _included(ch, cfg):
             continue
-        if _excluded(ch, cfg):
+        if is_excluded(ch, cfg):
             continue
         ch.group = _assign_group(ch, cfg)
         out.append(ch)

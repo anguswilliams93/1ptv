@@ -27,6 +27,15 @@ class PlaylistSource:
     group: str | None = None
 
 
+@dataclass
+class DiscoveryConfig:
+    """Rules for the channel-discovery action (suggests new include ids)."""
+    countries: list[str]
+    require_english: bool
+    categories: list[str]
+    max_candidates: int
+
+
 def _parse_playlist_source(item) -> PlaylistSource:
     if isinstance(item, str):
         return PlaylistSource(url=item)
@@ -52,6 +61,7 @@ class Config:
     output_epg_url: str
     playlist_sources: list[PlaylistSource]
     playlist_include_groups: list[str]
+    discovery: DiscoveryConfig
 
 
 def load_config(path: Path) -> Config:
@@ -67,6 +77,7 @@ def _from_raw(raw: dict) -> Config:
         if key not in raw:
             raise KeyError(f"config missing required top-level key: {key}")
     hc = raw["healthcheck"]
+    disc = raw.get("discovery") or {}
     return Config(
         include_countries=list(raw["include"].get("countries", [])),
         include_channel_ids=list(raw["include"].get("channel_ids", [])),
@@ -91,4 +102,11 @@ def _from_raw(raw: dict) -> Config:
         output_epg_url=str(raw["output"]["epg_url"]),
         playlist_sources=[_parse_playlist_source(s) for s in (raw.get("playlist_sources") or [])],
         playlist_include_groups=list(raw.get("playlist_include_groups") or []),
+        discovery=DiscoveryConfig(
+            # GB is iptv-org's code for the UK.
+            countries=list(disc.get("countries") or ["AU", "GB", "US", "CA", "IE", "TT"]),
+            require_english=bool(disc.get("require_english", True)),
+            categories=list(disc.get("categories") or []),
+            max_candidates=int(disc.get("max_candidates", 40)),
+        ),
     )

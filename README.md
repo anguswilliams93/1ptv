@@ -25,7 +25,15 @@ python -m venv .venv
 source .venv/bin/activate     # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 python -m pipeline             # full run
+python -m pipeline.discover    # search iptv-org for new English-market channels
 pytest                          # tests
 ```
+
+### Automation
+
+| workflow | when | what |
+|---|---|---|
+| `build` | every 6h + push to `main` | test → healthcheck → publish playlist/EPG to `gh-pages` |
+| `discover-channels` | weekly (Mon) + manual | scan iptv-org for candidates not in `config.yaml`, open/update a `channel-discovery` issue |
 
 See `docs/superpowers/specs/2026-05-18-au-iptv-playlist-design.md` for design.
