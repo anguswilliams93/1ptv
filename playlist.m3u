@@ -113,6 +113,12 @@ https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3
 https://skynewsau-live.akamaized.net/hls/live/2002691/skynewsau-extra3/master.m3u8
 #EXTINF:-1 tvg-id="CricketGold.au" tvg-logo="" group-title="Sport",Cricket Gold
 https://trs1.aynaott.com/CricketGold/index.m3u8
+#EXTINF:-1 tvg-id="FoxSports503.au" tvg-logo="" group-title="Sport",Fox Sports 503
+https://messi.damitv.st/papi/ts/fox-sports-503/playlist.m3u8
+#EXTINF:-1 tvg-id="FoxSports505.au" tvg-logo="" group-title="Sport",Fox Sports 505
+https://messi.damitv.st/papi/ts/fox-sports-505/playlist.m3u8
+#EXTINF:-1 tvg-id="FoxSports506.au" tvg-logo="" group-title="Sport",Fox Sports 506
+https://messi.damitv.st/papi/ts/fox-sports-506/playlist.m3u8
 #EXTINF:-1 tvg-id="SkyRacing1.au" tvg-logo="" group-title="Sport",Sky Racing 1
 https://skylivetab-new.akamaized.net/hls/live/2038780/sky1/index.m3u8
 #EXTINF:-1 tvg-id="SkyRacing2.au" tvg-logo="" group-title="Sport",Sky Racing 2
