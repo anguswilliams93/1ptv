@@ -73,7 +73,7 @@ https://lsn.lv/bbcradio.m3u8?station=bbc_6music&bitrate=320000
 http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_low/ak/bbc_world_service.m3u8
 #EXTINF:-1 tvg-id="BloombergTVEurope.uk" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1074.png" group-title="UK",Bloomberg TV
 https://bloomberg.com/media-manifest/streams/eu.m3u8
-#EXTINF:-1 tvg-id="Channel5.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Channel_5_%28UK%29_2016.svg/530px-Channel_5_%28UK%29_2016.svg.png" group-title="UK",Channel 5 Ⓢ
+#EXTINF:-1 tvg-id="Channel5.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Channel_5_%28UK%29_2016.svg/500px-Channel_5_%28UK%29_2016.svg.png" group-title="UK",Channel 5 Ⓢ
 http://193.46.58.239:8080/Channel5/index.m3u8
 #EXTINF:-1 tvg-id="France24English.fr" tvg-logo="https://i.imgur.com/61MSiq9.png" group-title="UK",France 24 Ⓨ
 https://www.youtube.com/c/france24english/live
@@ -89,9 +89,9 @@ https://amg01753-narrativeuk-amg01753c2-lg-gb-1832.playouts.now.amagi.tv/playlis
 https://lo3.gemporia.com/abrhobbymakerukgfx/smil:livestreamFullHD.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="ITV1.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/ITV1_logo_%282022%29.svg/500px-ITV1_logo_%282022%29.svg.png" group-title="UK",ITV 1
 http://45.14.84.37/itv1/index.m3u8
-#EXTINF:-1 tvg-id="ITV2.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/ITV2_logo_2022.svg/500px-ITV2_logo_2022.svg.png" group-title="UK",ITV 2
+#EXTINF:-1 tvg-id="ITV2.uk" tvg-logo="https://i.imgur.com/Ji65OXG.png" group-title="UK",ITV 2
 http://45.14.84.37/itv2/index.m3u8
-#EXTINF:-1 tvg-id="ITV3.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/6/67/ITV3_logo_2022.svg/500px-ITV3_logo_2022.svg.png" group-title="UK",ITV 3
+#EXTINF:-1 tvg-id="ITV3.uk" tvg-logo="https://i.imgur.com/vYNyYGx.png" group-title="UK",ITV 3
 http://45.14.84.37/itv3/index.m3u8
 #EXTINF:-1 tvg-id="ITV4.uk" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/ITV4_logo_%282022%29.svg/500px-ITV4_logo_%282022%29.svg.png" group-title="UK",ITV 4
 http://45.14.84.37/itv4/index.m3u8
@@ -241,17 +241,17 @@ https://live.rte.ie/live/a/channel2/channel2.isml/channel2.m3u8
 https://stream.audioxi.com/SP
 #EXTINF:-1 tvg-id="sunshineradio.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/9/97/Sunshine_106.8_logo.png" group-title="Ireland",Sunshine 106.8
 https://live-bauerie.sharp-stream.com/SUN
-#EXTINF:-1 tvg-id="TG4.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/TG4_logo.svg/1024px-TG4_logo.svg.png" group-title="Ireland",TG4
+#EXTINF:-1 tvg-id="TG4.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/TG4_logo.svg/960px-TG4_logo.svg.png" group-title="Ireland",TG4
 https://fastly.live.brightcove.com/6384196213112/eu-west-1/1555966122001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoieDl2YzlnLmVncmVzcy55ODN1ZWIiLCJhY2NvdW50X2lkIjoiMTU1NTk2NjEyMjAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyIxNTU1OTY2MTIyMDAxIl0sImp0aSI6IjYzODQxOTYyMTMxMTIifQ.Co2xR3kmJBoxTaFTpwU0b37lJ05vNt-y32-SwfM26EA/chunklist.m3u8
 #EXTINF:-1 tvg-id="todayfm.com" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/bf/Today_FM_Logo_2017.jpg" group-title="Ireland",Today FM
 https://stream.audioxi.com/TDAAC
-#EXTINF:-1 tvg-id="VirginMediaOne.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Virgin_Media_One_logo_2018.svg/1024px-Virgin_Media_One_logo_2018.svg.png" group-title="Ireland",Virgin Media 1
+#EXTINF:-1 tvg-id="VirginMediaOne.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Virgin_Media_One_logo_2018.svg/960px-Virgin_Media_One_logo_2018.svg.png" group-title="Ireland",Virgin Media 1
 https://live-virginmedia.simplestreamcdn.com/s3/rewrite/virgin_one/index.m3u8
-#EXTINF:-1 tvg-id="VirginMediaTwo.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Virgin_Media_Two_logo_2018.svg/1024px-Virgin_Media_Two_logo_2018.svg.png" group-title="Ireland",Virgin Media 2
+#EXTINF:-1 tvg-id="VirginMediaTwo.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Virgin_Media_Two_logo_2018.svg/960px-Virgin_Media_Two_logo_2018.svg.png" group-title="Ireland",Virgin Media 2
 https://live-virginmedia.simplestreamcdn.com/s3/rewrite/virgin_two/index.m3u8
-#EXTINF:-1 tvg-id="VirginMediaThree.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/Virgin_Media_Three_logo_2018.svg/1024px-Virgin_Media_Three_logo_2018.svg.png" group-title="Ireland",Virgin Media 3
+#EXTINF:-1 tvg-id="VirginMediaThree.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/Virgin_Media_Three_logo_2018.svg/960px-Virgin_Media_Three_logo_2018.svg.png" group-title="Ireland",Virgin Media 3
 https://live-virginmedia.simplestreamcdn.com/s3/rewrite/virgin_three/index.m3u8
-#EXTINF:-1 tvg-id="VirginMediaFour.ie" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Virgin_Media_Four_logo.svg/1024px-Virgin_Media_Four_logo.svg.png" group-title="Ireland",Virgin Media 4
+#EXTINF:-1 tvg-id="VirginMediaFour.ie" tvg-logo="https://i.imgur.com/x4VsyIm.png" group-title="Ireland",Virgin Media 4
 https://live-virginmedia.simplestreamcdn.com/s3/rewrite/virgin_four/index.m3u8
 #EXTINF:-1 tvg-id="CNC3.tt" tvg-logo="https://i.imgur.com/1E73l2j.png" group-title="Trinidad",CNC3
 https://sktv-forwarders.7m.pl/get.php?x=CNC3
@@ -289,6 +289,8 @@ https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3
 https://skynewsau-live.akamaized.net/hls/live/2002690/skynewsau-extra2/master.m3u8
 #EXTINF:-1 tvg-id="SkyNewsExtra3.au" tvg-logo="" group-title="News",Sky News Extra 3
 https://skynewsau-live.akamaized.net/hls/live/2002691/skynewsau-extra3/master.m3u8
+#EXTINF:-1 tvg-id="tickerNews.au" tvg-logo="" group-title="News",ticker News
+https://live-hls-7agy.livepush.io/live_abr_cdn/nsitWAl1pTZtwca/emnmZbKZcO8RfwJR/index.m3u8
 #EXTINF:-1 tvg-id="CricketGold.au" tvg-logo="" group-title="Sport",Cricket Gold
 https://streams2.sofast.tv/scheduler/scheduleMaster/418.m3u8
 #EXTINF:-1 tvg-id="SkyRacing1.au" tvg-logo="" group-title="Sport",Sky Racing 1
