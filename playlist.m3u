@@ -273,6 +273,8 @@ https://6prlive.akamaized.net/hls/live/2033806/6PR/index.m3u8
 https://cdn-7.pishow.tv/live/429/master.m3u8
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-logo="" group-title="News",BBC News
 https://xemzi.short.gy/1000015
+#EXTINF:-1 tvg-id="CNNInternational.us" tvg-logo="" group-title="News",CNN International
+https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
 #EXTINF:-1 tvg-id="DW.de" tvg-logo="" group-title="News",DW
 https://cdn-7.pishow.tv/live/431/master.m3u8
 #EXTINF:-1 tvg-id="France24.fr" tvg-logo="" group-title="News",France 24
@@ -295,8 +297,6 @@ https://streams2.sofast.tv/scheduler/scheduleMaster/418.m3u8
 https://skylivetab-new.akamaized.net/hls/live/2038780/sky1/index.m3u8
 #EXTINF:-1 tvg-id="SkyRacing2.au" tvg-logo="" group-title="Sport",Sky Racing 2
 https://skylivetab-new.akamaized.net/hls/live/2038781/sky2/index.m3u8
-#EXTINF:-1 tvg-id="SkyThoroughbredCentral.au" tvg-logo="" group-title="Sport",Sky Thoroughbred Central
-https://skylivetab-new.akamaized.net/hls/live/2038782/stcsd/index.m3u8
 #EXTINF:-1 tvg-id="CTBPerthMoviesChannel.au" tvg-logo="" group-title="Movies",CTB Perth Movies Channel
 https://movies.ctbperth.net.au/hls/stream.m3u8
 #EXTINF:-1 tvg-id="C31Melbourne.au" tvg-logo="" group-title="Entertainment",C31 Melbourne
