@@ -272,15 +272,17 @@ https://6prlive.akamaized.net/hls/live/2033806/6PR/index.m3u8
 #EXTINF:-1 tvg-id="AlJazeera.qa" tvg-logo="" group-title="News",Al Jazeera
 https://cdn-7.pishow.tv/live/429/master.m3u8
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-logo="" group-title="News",BBC News
-https://xemzi.short.gy/1000015
+https://tvsen1.aynaott.com/shn6jGTk/index.m3u8
 #EXTINF:-1 tvg-id="CNNInternational.us" tvg-logo="" group-title="News",CNN International
 https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
 #EXTINF:-1 tvg-id="DW.de" tvg-logo="" group-title="News",DW
 https://cdn-7.pishow.tv/live/431/master.m3u8
 #EXTINF:-1 tvg-id="France24.fr" tvg-logo="" group-title="News",France 24
-https://liveh12.vtvprime.vn/hls/FRANCE24/03.m3u8
+https://freem3u.xyz/api/live/play.m3u8?vid=96
 #EXTINF:-1 tvg-id="News24.au" tvg-logo="" group-title="News",News24
 https://skynewsau-live-premium.akamaized.net/hls/live/2105299/skynews/live.m3u8
+#EXTINF:-1 tvg-id="News24World.au" tvg-logo="" group-title="News",News24 World
+https://skynewsau-live-premium.akamaized.net/hls/live/2105306/skynewsextra/live_540p.m3u8
 #EXTINF:-1 tvg-id="SBSWorldWatch.au" tvg-logo="" group-title="News",SBS WorldWatch
 http://44.32.200.142:5004/auto/v35
 #EXTINF:-1 tvg-id="SkyNewsExtra1.au" tvg-logo="" group-title="News",Sky News Extra 1
@@ -293,6 +295,8 @@ https://skynewsau-live.akamaized.net/hls/live/2002691/skynewsau-extra3/master.m3
 https://live-hls-7agy.livepush.io/live_abr_cdn/nsitWAl1pTZtwca/emnmZbKZcO8RfwJR/index.m3u8
 #EXTINF:-1 tvg-id="CricketGold.au" tvg-logo="" group-title="Sport",Cricket Gold
 https://streams2.sofast.tv/scheduler/scheduleMaster/418.m3u8
+#EXTINF:-1 tvg-id="FoxSportsNews.au" tvg-logo="" group-title="Sport",Fox Sports News
+https://skynewsau-live-premium.akamaized.net/hls/live/2105307/foxsportsnews/live_1080p.m3u8
 #EXTINF:-1 tvg-id="SkyRacing1.au" tvg-logo="" group-title="Sport",Sky Racing 1
 https://skylivetab-new.akamaized.net/hls/live/2038780/sky1/index.m3u8
 #EXTINF:-1 tvg-id="SkyRacing2.au" tvg-logo="" group-title="Sport",Sky Racing 2
@@ -315,5 +319,7 @@ http://tv1.intv.mk:1935/live/intv/index.m3u8
 https://d9quh89lh7dtw.cloudfront.net/public-output/index.m3u8
 #EXTINF:-1 tvg-id="MISTelevizija.au" tvg-logo="" group-title="Other",MIS Televizija
 https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
+#EXTINF:-1 tvg-id="SkyNewsWeatherChannel.au" tvg-logo="" group-title="Other",Sky News Weather Channel
+https://skynewsau-live-premium.akamaized.net/hls/live/2105305/skynewsweather/live_540p.m3u8
 #EXTINF:-1 tvg-id="WeatherSpy.au" tvg-logo="" group-title="Other",WeatherSpy
 https://jukin-weatherspy-2-au.samsung.wurl.tv/playlist.m3u8
