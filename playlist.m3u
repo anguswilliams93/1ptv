@@ -141,14 +141,16 @@ https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/5fb5836fe
 https://2-fss-1.streamhoster.com/pl_154/205722-2251224-1/playlist.m3u8
 #EXTINF:-1 tvg-id="BloombergTelevision.us" tvg-logo="https://i.imgur.com/VnCcH73.png" group-title="USA",Bloomberg
 https://bloomberg.com/media-manifest/streams/us.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="https://i.imgur.com/JBEM8lP.png" group-title="USA",Botflix Radioo
+https://hls.botflix.tv/radioo/index.m3u8
+#EXTINF:-1 tvg-id="" tvg-logo="https://i.imgur.com/JBEM8lP.png" group-title="USA",Botflix TV
+https://hls.botflix.tv/tv/index.m3u8
 #EXTINF:-1 tvg-id="CBSNews.us" tvg-logo="https://i.imgur.com/nki2HDQ.png" group-title="USA",CBS News
 https://cbsnews.akamaized.net/hls/live/2020607/cbsnlineup_8/master.m3u8
 #EXTINF:-1 tvg-id="Cheddar.us" tvg-logo="https://graph.facebook.com/cheddar/picture?width=200&height=200" group-title="USA",Cheddar
 https://hls.livecdn.io/cheddar.com/cheddar/playlist.m3u8
 #EXTINF:-1 tvg-id="CNBC.us" tvg-logo="https://i.imgur.com/BTasyOy.png" group-title="USA",CNBC Ⓨ
 https://www.youtube.com/c/CNBC/live
-#EXTINF:-1 tvg-id="CNN.us" tvg-logo="https://i.imgur.com/vyrc1I1.png" group-title="USA",CNN
-https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8
 #EXTINF:-1 tvg-id="CourtTV.us" tvg-logo="https://graph.facebook.com/courttv/picture?width=200&height=200" group-title="USA",Court TV
 https://content.uplynk.com/channel/6c0bd0f94b1d4526a98676e9699a10ef.m3u8
 #EXTINF:-1 tvg-id="Docurama.us" tvg-logo="https://i.imgur.com/bNg8mze.png" group-title="USA",Docurama
@@ -163,8 +165,6 @@ https://lukentvlive.vgcdn.net/v1/master/cef183924f24adfa3d5d7601c3a17769082c0c2b
 http://media.boni-records.com/index.m3u8
 #EXTINF:-1 tvg-id="NASATVMedia.us" tvg-logo="https://i.imgur.com/rmyfoOI.png" group-title="USA",NASA TV Media
 https://ntv2.akamaized.net/hls/live/2013923/NASA-NTV2-HLS/master.m3u8
-#EXTINF:-1 tvg-id="NASATVPublic.us" tvg-logo="https://i.imgur.com/rmyfoOI.png" group-title="USA",NASA TV Public
-https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master_2000.m3u8
 #EXTINF:-1 tvg-id="NBCNewsNow.us" tvg-logo="https://i.imgur.com/v48mMRT.png" group-title="USA",NBC News
 https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99984003
 #EXTINF:-1 tvg-id="Newsmax.us" tvg-logo="https://graph.facebook.com/newsmax/picture?width=200&height=200" group-title="USA",Newsmax TV
@@ -274,7 +274,7 @@ https://cdn-7.pishow.tv/live/429/master.m3u8
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-logo="" group-title="News",BBC News
 https://tvsen1.aynaott.com/shn6jGTk/index.m3u8
 #EXTINF:-1 tvg-id="CNNInternational.us" tvg-logo="" group-title="News",CNN International
-https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
+https://vid.hls.protv.ro/liveibu8/liveibu8_highw/index.m3u8?1
 #EXTINF:-1 tvg-id="DW.de" tvg-logo="" group-title="News",DW
 https://cdn-7.pishow.tv/live/431/master.m3u8
 #EXTINF:-1 tvg-id="France24.fr" tvg-logo="" group-title="News",France 24
@@ -283,8 +283,6 @@ https://freem3u.xyz/api/live/play.m3u8?vid=96
 https://skynewsau-live-premium.akamaized.net/hls/live/2105299/skynews/live.m3u8
 #EXTINF:-1 tvg-id="News24World.au" tvg-logo="" group-title="News",News24 World
 https://skynewsau-live-premium.akamaized.net/hls/live/2105306/skynewsextra/live_540p.m3u8
-#EXTINF:-1 tvg-id="SBSWorldWatch.au" tvg-logo="" group-title="News",SBS WorldWatch
-http://44.32.200.142:5004/auto/v35
 #EXTINF:-1 tvg-id="SkyNewsExtra1.au" tvg-logo="" group-title="News",Sky News Extra 1
 https://skynewsau-live.akamaized.net/hls/live/2002689/skynewsau-extra1/master.m3u8
 #EXTINF:-1 tvg-id="SkyNewsExtra2.au" tvg-logo="" group-title="News",Sky News Extra 2
@@ -319,7 +317,7 @@ http://tv1.intv.mk:1935/live/intv/index.m3u8
 https://d9quh89lh7dtw.cloudfront.net/public-output/index.m3u8
 #EXTINF:-1 tvg-id="MISTelevizija.au" tvg-logo="" group-title="Other",MIS Televizija
 https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
-#EXTINF:-1 tvg-id="SkyNewsWeatherChannel.au" tvg-logo="" group-title="Other",Sky News Weather Channel
+#EXTINF:-1 tvg-id="News24Weather.au" tvg-logo="" group-title="Other",News24 Weather
 https://skynewsau-live-premium.akamaized.net/hls/live/2105305/skynewsweather/live_540p.m3u8
 #EXTINF:-1 tvg-id="WeatherSpy.au" tvg-logo="" group-title="Other",WeatherSpy
 https://jukin-weatherspy-2-au.samsung.wurl.tv/playlist.m3u8
