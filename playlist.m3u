@@ -270,13 +270,13 @@ https://3awlive.akamaized.net/hls/live/2032295/3AW/index.m3u8
 #EXTINF:-1 tvg-id="6PR.au" tvg-logo="" group-title="News",6PR
 https://6prlive.akamaized.net/hls/live/2033806/6PR/index.m3u8
 #EXTINF:-1 tvg-id="AlJazeera.qa" tvg-logo="" group-title="News",Al Jazeera
-https://cdn-7.pishow.tv/live/429/master.m3u8
+https://fta.ektv.in/live/318/master.m3u8
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-logo="" group-title="News",BBC News
 https://tvsen1.aynaott.com/shn6jGTk/index.m3u8
 #EXTINF:-1 tvg-id="CNNInternational.us" tvg-logo="" group-title="News",CNN International
 https://vid.hls.protv.ro/liveibu8/liveibu8_highw/index.m3u8?1
 #EXTINF:-1 tvg-id="DW.de" tvg-logo="" group-title="News",DW
-https://cdn-7.pishow.tv/live/431/master.m3u8
+https://fta.ektv.in/live/116/116_0.m3u8
 #EXTINF:-1 tvg-id="France24.fr" tvg-logo="" group-title="News",France 24
 https://freem3u.xyz/api/live/play.m3u8?vid=96
 #EXTINF:-1 tvg-id="News24.au" tvg-logo="" group-title="News",News24
