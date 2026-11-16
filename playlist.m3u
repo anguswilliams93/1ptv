@@ -309,6 +309,8 @@ https://d1k6kax80wecy5.cloudfront.net/WFqZJc/index.m3u8
 https://live.ctbperth.net.au/hls/0/stream.m3u8
 #EXTINF:-1 tvg-id="JonmoBhumiTV.au" tvg-logo="" group-title="Entertainment",JonmoBhumi TV
 https://jtvs.ncare.live/Gznr84Woj7UEye3OPVeWq2ForboWAgdV/jonmobhumitv.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="Nickelodeon.au" tvg-logo="" group-title="Kids",Nickelodeon
+https://i.mjh.nz/.r/10shake-nsw.m3u8
 #EXTINF:-1 tvg-id="NickToons90s.au" tvg-logo="" group-title="Kids",NickToons 90s
 https://i.mjh.nz/.r/10-nicktoons-90s.m3u8
 #EXTINF:-1 tvg-id="FolkKlubTV.au" tvg-logo="" group-title="Music",Folk Klub TV
