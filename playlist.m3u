@@ -301,6 +301,8 @@ https://skylivetab-new.akamaized.net/hls/live/2038780/sky1/index.m3u8
 https://skylivetab-new.akamaized.net/hls/live/2038781/sky2/index.m3u8
 #EXTINF:-1 tvg-id="CTBPerthMoviesChannel.au" tvg-logo="" group-title="Movies",CTB Perth Movies Channel
 https://movies.ctbperth.net.au/hls/stream.m3u8
+#EXTINF:-1 tvg-id="ABCAustralia.au" tvg-logo="" group-title="Entertainment",ABC Australia
+https://proxy-v.rctiplus.id/live/web/abcaus/index.m3u8
 #EXTINF:-1 tvg-id="C31Melbourne.au" tvg-logo="" group-title="Entertainment",C31 Melbourne
 https://d1k6kax80wecy5.cloudfront.net/RLnAKY/index.m3u8
 #EXTINF:-1 tvg-id="Channel44.au" tvg-logo="" group-title="Entertainment",Channel 44
@@ -319,8 +321,6 @@ http://tv1.intv.mk:1935/live2/folkklub/index.m3u8
 http://tv1.intv.mk:1935/live/intv/index.m3u8
 #EXTINF:-1 tvg-id="AusbizTV.au" tvg-logo="" group-title="Other",Ausbiz TV
 https://d9quh89lh7dtw.cloudfront.net/public-output/index.m3u8
-#EXTINF:-1 tvg-id="MISTelevizija.au" tvg-logo="" group-title="Other",MIS Televizija
-https://5afd52b55ff79.streamlock.net/MISTV/myStream/playlist.m3u8
 #EXTINF:-1 tvg-id="News24Weather.au" tvg-logo="" group-title="Other",News24 Weather
 https://skynewsau-live-premium.akamaized.net/hls/live/2105305/skynewsweather/live_540p.m3u8
 #EXTINF:-1 tvg-id="WeatherSpy.au" tvg-logo="" group-title="Other",WeatherSpy
